@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import Home from "./pages/Home";
-import Training from "./pages/Create-tables/index";
+import Training from "./pages/training";
 import Header from "./components/Header";
 
 import { ChakraProvider } from "@chakra-ui/react";

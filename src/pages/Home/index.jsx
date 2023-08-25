@@ -45,12 +45,12 @@ function Home() {
         <Box className="content-2">
           <Flex className="text-box">
             <Text className="line-text-1">
-              <span className="welcome-text">Welcome</span>
-              <span className="to-text">to</span>
+              <Text className="welcome-text">Welcome</Text>
+              <Text className="to-text">to</Text>
             </Text>
             <Text className="line-text-2">
-              <span>Training sheet</span>
-              <span>creator</span>
+              <Text>Training sheet</Text>
+              <Text>creator</Text>
             </Text>
             <Text className="line-text-3">
               A simple platform that fits your purpose
