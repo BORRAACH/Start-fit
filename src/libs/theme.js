@@ -4,6 +4,7 @@ import { color } from 'framer-motion';
 
 const styles = {
   global: (props) => ({
+    transitionTimeFunction: 'linear',
     body: {
       bg: mode('#F7FAFC', '#202023')(props),
     },
@@ -45,6 +46,9 @@ const components = {
       }),
     },
   },
+  ListItem: {
+    listStyleType: 'none',
+  },
 };
 
 const fonts = {
@@ -58,6 +62,7 @@ const colors = {
 const config = {
   initialColorMode: 'light',
   useSystemColorMode: true,
+  transitionDuration: '0s',
 };
 
 const theme = extendTheme({

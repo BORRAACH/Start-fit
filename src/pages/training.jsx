@@ -1,70 +1,53 @@
 // chakra-ui
-import { Container, Button, Image, Text, Flex, Box } from "@chakra-ui/react";
+import { Container, Button, Box, Text, Flex, Input } from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons';
+import { motion } from 'framer-motion';
 
-import Home from "../assets/Icons/home.svg";
-import Plus from "../assets/Icons/plus.svg";
-import Weight from "../assets/Icons/weight.svg";
-import User from "../assets/Icons/user.svg";
-
-const boxNav = {
-  p: 3,
-  h: "full",
-  w: "full",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-};
+import { useState } from 'react';
 
 const Training = () => {
+  const [boxes, setBoxes] = useState([]);
+
+  const handleAddBox = () => {
+    setBoxes([
+      ...boxes,
+      <Box key={boxes.length} borderRadius={10} bg={'gray.200'} p={10} m={10}>
+        <Text>Hello World</Text>
+      </Box>,
+    ]);
+  };
+
   return (
-    <Container w={"100%"}>
-      <Flex alignItems={"center"} flexDirection={"column"}>
-        <Button
-          bg={"none"}
-          py={6}
-          borderRadius={"md"}
-          borderWidth={"1px"}
-          borderColor={"Black"}
-          h={10}
-          gap={3.5}
-        >
-          <Image src={Plus} w={5} />
-          <Text
-            fontSize={"2xl"}
-            fontWeight={"hairline"}
-            paddingRight={6}
-            fontFamily={"Inter, sans-serif"}
+    <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.5, delay: 0.3 }}
+    >
+      <Container w={'100%'}>
+        <Flex alignItems={'center'} flexDirection={'column'}>
+          <Button
+            bg={'none'}
+            py={6}
+            border={'1px solid #000'}
+            h={8}
+            gap={3.5}
+            onClick={handleAddBox}
           >
-            create a new training
-          </Text>
-        </Button>
-        <Container></Container>
-        <Box
-          w={"lg"}
-          bg={"gray.100"}
-          position={"fixed"}
-          bottom={7}
-          borderRadius={"lg"}
-          p={3}
-        >
-          <Flex justifyContent={"space-around"}>
-            <Box {...boxNav}>
-              <Image src={Home} />
-              <Text>Home</Text>
-            </Box>
-            <Box {...boxNav}>
-              <Image src={Weight} />
-              <Text mt={3}>Teino</Text>
-            </Box>
-            <Box {...boxNav}>
-              <Image src={User} />
-              <Text>Profile</Text>
-            </Box>
-          </Flex>
-        </Box>
-      </Flex>
-    </Container>
+            <AddIcon />
+            <Text
+              fontSize={'2xl'}
+              fontWeight={'hairline'}
+              paddingRight={6}
+              fontFamily={'Inter, sans-serif'}
+            >
+              create a new training
+            </Text>
+          </Button>
+          <Container>{boxes.map((box) => box)}</Container>
+        </Flex>
+      </Container>
+    </motion.div>
   );
 };
 

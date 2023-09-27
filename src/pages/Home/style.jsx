@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from 'styled-components';
 
 const GlobalStyleHome = createGlobalStyle`
   
@@ -6,17 +6,7 @@ const GlobalStyleHome = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  .first-container {
-    display: flex;
-    justify-content: space-around;
-
-    width: 100%;
-    
-    padding: 2rem 3rem 3rem 3rem;
-    gap: 10rem;
-
-
-    .table-box{
+  .table-box{
     width: 38.75rem;
     height: 44.5rem;
 
@@ -45,6 +35,19 @@ const GlobalStyleHome = createGlobalStyle`
     line-height: normal;
     letter-spacing: 0.15625rem;
   }
+
+  .first-container {
+    display: flex;
+    justify-content: space-around;
+
+    width: 100%;
+    
+    padding: 2rem 3rem 3rem 3rem;
+    gap: 10rem;
+
+
+    
+
 
   .content-2{
       display: flex;
@@ -101,10 +104,10 @@ const GlobalStyleHome = createGlobalStyle`
       font-weight: 400;
       line-height: normal;
     }
-    }
+  }
 
   }
-  }
+}
 `;
 
 const RadialGradient = styled.div`
