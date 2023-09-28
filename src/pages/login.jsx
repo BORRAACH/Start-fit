@@ -8,6 +8,7 @@ import {
   Button,
   Alert,
   AlertIcon,
+  Box,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 
@@ -21,7 +22,9 @@ const Login = () => {
 
   const [emailError, setEmailError] = useState(null);
   const [passError, setPassError] = useState(null);
+
   const [formSubmited, setFormSubmited] = useState(false);
+  const [formStored, setFormStored] = useState(null);
 
   const handleEmailChange = (e) => {
     const { value } = e.target;
@@ -32,7 +35,6 @@ const Login = () => {
         ...formData,
         email: value,
       });
-      console.log(formData);
     } else {
       setEmailError('Email inválido. Deve conter @');
     }
@@ -51,6 +53,7 @@ const Login = () => {
       });
     }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -58,23 +61,16 @@ const Login = () => {
       return;
     }
 
-    console.log(formData);
+    setFormStored(formData);
     setFormSubmited(true);
   };
 
   useEffect(() => {
     if (formSubmited) {
-      console.log('Dados exportados com sucesso:', formData);
+      console.log('Dados exportados com sucesso:', formStored);
       setFormSubmited(false);
     }
-  }, [formData, formSubmited]);
-
-  const exportFormData = () => formData;
-
-  const handleExport = () => {
-    const exportedFormData = exportFormData();
-    console.log('Dados exportados:', exportedFormData);
-  };
+  }, [formStored, formSubmited]);
 
   return (
     <motion.div
@@ -91,7 +87,6 @@ const Login = () => {
         right={'36%'}
         borderRadius={10}
       >
-        {/* <Form method="post" action="/create" /*onSubmit={createAction}> */}
         <FormControl>
           <Stack spacing={5}>
             <Text fontSize={'2xl'} color={'white'}>
@@ -149,9 +144,27 @@ const Login = () => {
           </motion.div>
         )}
       </Container>
+      <Container>
+        {formStored && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Box m={10} p={10} borderRadius={10} bg={'blackAlpha.900'}>
+              <Text fontSize={15} color="gray.100" t>
+                Email: {formStored.email}
+              </Text>
+              <Text fontSize={15} color="gray.100">
+                Password: {formStored.password}
+              </Text>
+            </Box>
+          </motion.div>
+        )}
+      </Container>
     </motion.div>
   );
 };
 
 export default Login;
-export { formData, setFormData };
