@@ -17,11 +17,21 @@ import {
 import { AiOutlineUser } from 'react-icons/ai';
 
 import SidebarIcon from '../assets/Icons/sidebar.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
 const Sidebar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+
+  const { signout } = useAuth();
+  const navigator = useNavigate();
+
+  const handleLogout = () => {
+    signout();
+    navigator('/');
+    return;
+  };
 
   return (
     <>
@@ -42,14 +52,15 @@ const Sidebar = () => {
           <DrawerBody></DrawerBody>
 
           <DrawerFooter alignItems={'center'}>
-            <Flex justifyContent={'space-between'}>
-              <Text>Username</Text>
-              <Link to="/login">
-                <Button colorScheme="blue">
-                  <AiOutlineUser />
-                </Button>
-              </Link>
-            </Flex>
+            <Button colorScheme={'blue'} onClick={handleLogout}>
+              sair
+            </Button>
+            <Text>Username</Text>
+            <Link to="/login">
+              <Button colorScheme="blue">
+                <AiOutlineUser />
+              </Button>
+            </Link>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

@@ -46,9 +46,6 @@ const components = {
       }),
     },
   },
-  ListItem: {
-    listStyleType: 'none',
-  },
 };
 
 const fonts = {

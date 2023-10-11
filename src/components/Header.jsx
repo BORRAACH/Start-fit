@@ -57,39 +57,39 @@ const Header = () => {
         <Flex justifyContent="space-between" alignItems="center">
           <UnorderedList>
             <Flex gap="1.5rem">
-              <ListItem>
+              <ListItem listStyleType={'none'}>
                 <Box className="sidebar-button" {...styles.box}>
                   {/* <Image src={SidebarIcon} /> */}
                   <Sidebar />
                 </Box>
               </ListItem>
               {!isSmallerThan800 && (
-                <ListItem className="vertical-line">
+                <ListItem listStyleType={'none'} className="vertical-line">
                   <Image src={VerticalLine} h={10} />
                 </ListItem>
               )}
               {!isSmallerThan800 && (
                 <>
-                  <ListItem className="home-button">
+                  <ListItem listStyleType={'none'} className="home-button">
                     <Link to="/">
                       <Box {...styles.box} {...HomeIconProps}>
                         <Image src={HomeIcon} alt="home" />
                       </Box>
                     </Link>
                   </ListItem>
-                  <ListItem>
+                  <ListItem listStyleType={'none'}>
                     <Link to="/training">
                       <Box {...styles.box} {...TablesIconProps}>
                         <Image src={TablesIcon} alt="Tables" />
                       </Box>
                     </Link>
                   </ListItem>
-                  <ListItem className="vertical-line">
+                  <ListItem listStyleType={'none'} className="vertical-line">
                     <Image src={VerticalLine} h={10} />
                   </ListItem>
                 </>
               )}
-              <ListItem>
+              <ListItem listStyleType={'none'}>
                 <ThemeToggleButton />
               </ListItem>
             </Flex>
