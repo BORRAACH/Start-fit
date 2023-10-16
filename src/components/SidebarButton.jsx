@@ -13,6 +13,7 @@ import {
   useDisclosure,
   DrawerFooter,
   Flex,
+  Box,
 } from '@chakra-ui/react';
 import { AiOutlineUser } from 'react-icons/ai';
 

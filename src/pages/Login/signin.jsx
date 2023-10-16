@@ -8,9 +8,8 @@ import {
   Button,
   Alert,
   AlertIcon,
-  Box,
 } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -44,8 +43,7 @@ const Signin = () => {
       return;
     }
 
-    alert('Usuario cadastrado com sucesso!!');
-    console.log(localStorage, signed);
+    console.log(signed);
     navigate('/');
     return;
   };
@@ -55,7 +53,7 @@ const Signin = () => {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 10 }}
-      transition={{ delay: 0.2, duration: 0.5 }}
+      transition={{ delay: 1, duration: 0.5 }}
     >
       <Container
         p={10}
@@ -63,7 +61,7 @@ const Signin = () => {
         mt={10}
         top={'50%'}
         right={'36%'}
-        borderRadius={10}
+        borderRadius={5}
       >
         <FormControl>
           <Stack spacing={5}>
@@ -103,19 +101,42 @@ const Signin = () => {
             </Button>
           </Stack>
         </FormControl>
-        {error && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Alert status="error" mt={10} borderRadius={5}>
+        <AnimatePresence>
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Alert status="error" mt={10} borderRadius={5}>
+                <AlertIcon />
+                {error}
+              </Alert>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Container>
+      <Container>
+        <AnimatePresence>
+          {!email && (
+            <Alert
+              as={motion.div}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              borderRadius={5}
+              mt={5}
+            >
               <AlertIcon />
-              {error}
+              <Text>
+                O usuário deve estar logado para ter acesso ao sistema de
+                criação de fichas
+              </Text>
             </Alert>
-          </motion.div>
-        )}
+          )}
+        </AnimatePresence>
       </Container>
     </motion.div>
   );

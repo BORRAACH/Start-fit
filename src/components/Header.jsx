@@ -13,6 +13,7 @@ import {
   useColorMode,
 } from '@chakra-ui/react';
 import { mode } from '@chakra-ui/theme-tools';
+import useAuth from '../hooks/useAuth';
 import { motion } from 'framer-motion';
 
 import Sidebar from '../components/SidebarButton';
@@ -34,8 +35,9 @@ const styles = {
 const Header = () => {
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
   const location = useLocation();
-  const { colorMode } = useColorMode();
+  const { signed } = useAuth();
 
+  const { colorMode } = useColorMode();
   const color = colorMode === 'light' ? 'orange.300' : 'purple';
 
   const HomeIconProps = {

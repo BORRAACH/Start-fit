@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 
@@ -40,7 +40,6 @@ const Signup = () => {
       return;
     }
 
-    alert('Usuário cadastrado com sucesso!');
     navigate('/');
   };
 
@@ -111,19 +110,21 @@ const Signup = () => {
             </Button>
           </Stack>
         </FormControl>
-        {error && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Alert status="error" mt={10} borderRadius={5}>
-              <AlertIcon />
-              {error}
-            </Alert>
-          </motion.div>
-        )}
+        <AnimatePresence>
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Alert status="error" mt={10} borderRadius={5}>
+                <AlertIcon />
+                {error}
+              </Alert>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Container>
     </motion.div>
   );

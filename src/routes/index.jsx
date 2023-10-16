@@ -6,6 +6,7 @@ import Training from '../pages/training';
 import Create from '../pages/Create';
 import Signin from '../pages/Login/signin';
 import Signup from '../pages/Login/signup';
+import UserConfig from '../pages/userConfig';
 
 import useAuth from '../hooks/useAuth';
 
@@ -13,6 +14,12 @@ const Private = () => {
   const { signed } = useAuth();
 
   return signed > 0 ? <Home /> : <Signin />;
+};
+
+const RouteUser = () => {
+  const { signed } = useAuth();
+
+  return signed > 0 ? <UserConfig /> : <Signin />;
 };
 
 const RoutesApp = () => {
@@ -24,6 +31,7 @@ const RoutesApp = () => {
         <Route path="/training" element={<Training />} />
         <Route path="/create" element={<Create />} />
         <Route path="*" element={<Signin />} />
+        <Route path="/user-config" element={<RouteUser />} />
       </Routes>
     </Fragment>
   );

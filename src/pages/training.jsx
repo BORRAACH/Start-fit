@@ -1,102 +1,115 @@
 // chakra-ui
-import {
-  Container,
-  Button,
-  Box,
-  Text,
-  Flex,
-  Input,
-  Grid,
-  GridItem,
-} from '@chakra-ui/react';
+import { Button, Box, Text, Flex, Grid, GridItem } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { useEffect, useState } from 'react';
-import useAuth from '../hooks/useAuth';
-import { SelectExercises } from '../components/SelectExercises';
+import SetExercisesTables from '../components/SetExercisesTables';
 
 const Training = () => {
-  const [boxes, setBoxes] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const { user } = useAuth();
-
-  const handleCallInput = () => {
-    setIsOpen(true);
-  };
+  const [users, setUsers] = useState();
 
   useEffect(() => {
-    console.log(isOpen);
-  }, [isOpen]);
-
-  const displayInputBox = () => {
-    if (isOpen) return 'block';
-    return 'none';
-  };
+    fetch('http://localhost/Github/server/data_response.php')
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers(data);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error('Erro:', error);
+      });
+  }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.5, delay: 0.3 }}
-    >
-      <SelectExercises isOpen={isOpen} setisOpen={setIsOpen} />
-      <Grid
-        templateRows={'repeat(1, 3fr)'}
-        templateColumns={'repeat(4, 3fr)'}
-        gap={4}
-        p={10}
-        minH={'70vh'}
-        maxH={'90vh'}
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
       >
-        <GridItem borderRadius={10} colSpan={1}>
-          <Box
-            minH="xl"
-            w={'100%'}
-            position={'sticky'}
-            top={20}
+        <Grid
+          templateRows={'repeat(1, 3fr)'}
+          templateColumns={'repeat(4, 3fr)'}
+          gap={4}
+          p={10}
+          minH={'70vh'}
+          maxH={'90vh'}
+        >
+          <GridItem borderRadius={10} colSpan={1}>
+            <Box
+              minH="100%"
+              w={'100%'}
+              position={'sticky'}
+              top={20}
+              boxShadow={'lg'}
+              borderRadius={10}
+              bg={'gray.100'}
+            ></Box>
+          </GridItem>
+          <GridItem
+            p={4}
             borderRadius={10}
-            bg={'gray.300'}
-          ></Box>
+            colSpan={3}
+            bg={'gray.100'}
+            overflowY={'scroll'}
+            boxShadow={'lg'}
+          >
+            <Flex alignItems={'start'} flexDirection={'column'}>
+              <SetExercisesTables />
+            </Flex>
+          </GridItem>
+        </Grid>
+      </motion.div>
+      <Grid
+        templateRows={'repeat(2, 3fr)'}
+        templateColumns={'repeat(5, 3fr)'}
+        minH={'80vh'}
+        p={10}
+        gap={4}
+      >
+        <GridItem
+          colSpan={3}
+          rowSpan={1}
+          borderRadius={5}
+          minH={'100%'}
+          bg={'gray.200'}
+        >
+          <Text fontSize={'xl'}>Usuarios</Text>
+          {users &&
+            users.map((user) => (
+              <div key={user.id}>
+                <Text>{user.email}</Text>
+                <Text>{user.senha}</Text>
+              </div>
+            ))}
         </GridItem>
-        <GridItem p={4} borderRadius={10} colSpan={3} bg={'gray.200'}>
-          <Flex alignItems={'start'} flexDirection={'column'}>
-            <Button
-              bg={'none'}
-              py={6}
-              border={'1px solid #000'}
-              h={8}
-              gap={3.5}
-              onClick={handleCallInput}
-            >
-              <AddIcon />
-              <Text
-                fontSize={'2xl'}
-                fontWeight={'hairline'}
-                paddingRight={6}
-                fontFamily={'Inter, sans-serif'}
-              >
-                create a new training
-              </Text>
-            </Button>
-            <Container>
-              {boxes.map((box) => (
-                <motion.div
-                  key={boxes.length}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {box}
-                </motion.div>
-              ))}
-            </Container>
-          </Flex>
-        </GridItem>
+        <GridItem
+          colSpan={2}
+          rowSpan={1}
+          borderRadius={5}
+          minH={'100%'}
+          bg={'gray.100'}
+        ></GridItem>
+        <GridItem
+          colSpan={2}
+          rowSpan={1}
+          borderRadius={5}
+          rowStart={2}
+          bg={'gray.100'}
+          minH={'100%'}
+        ></GridItem>
+        <GridItem
+          colSpan={3}
+          rowSpan={1}
+          borderRadius={5}
+          rowStart={2}
+          bg={'gray.200'}
+          minH={'100%'}
+        ></GridItem>
       </Grid>
-    </motion.div>
+    </AnimatePresence>
   );
 };
 
