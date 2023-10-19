@@ -9,26 +9,26 @@
 
     // CRIAÇÃO E SELEÇÃO DO BANCO
     mysqli_query($conexao, 
-    "CREATE DATABASE IF NOT EXISTS Maromba_Etec
+    "CREATE DATABASE IF NOT EXISTS maromba_etec
         DEFAULT CHARACTER SET utf8
         DEFAULT COLLATE utf8_general_ci;")
 
     or die('Erro na criação do banco: ' . mysqli_error());
 
 
-    mysqli_select_db($conexao, 'Maromba_Etec')
+    mysqli_select_db($conexao, 'maromba_etec')
     or die('Erro na seleção do Banco: ' . mysqli_error());
 
 
     // CRIAÇÃO DAS TABELAS
     mysqli_query($conexao, 
-    "CREATE TABLE IF NOT EXISTS Exercicios(
-        ID          SMALLINT(5) NOT NULL AUTO_INCREMENT,
-        Nome        VARCHAR(60) NOT NULL,
-        Categoria   VARCHAR(30) NOT NULL,
-        Objetivo    VARCHAR(20) NOT NULL,
+    "CREATE TABLE IF NOT EXISTS exercicios(
+        id          SMALLINT(5) NOT NULL AUTO_INCREMENT,
+        nome        VARCHAR(60) NOT NULL,
+        categoria   VARCHAR(30) NOT NULL,
+        objetivo    VARCHAR(20) NOT NULL,
 
-        PRIMARY KEY(ID)
+        PRIMARY KEY(id)
 
     )
     ENGINE=InnoDB
@@ -38,13 +38,13 @@
 
 
     mysqli_query($conexao,
-    "CREATE TABLE IF NOT EXISTS Usuario(
-        ID          INT(10) NOT NULL AUTO_INCREMENT,
-        Nome        VARCHAR(80) NOT NULL,
-        Email       VARCHAR(80) NOT NULL UNIQUE,
-        Senha       VARCHAR(30) NOT NULL,
+    "CREATE TABLE IF NOT EXISTS usuario(
+        id          INT(10) NOT NULL AUTO_INCREMENT,
+        nome        VARCHAR(80) NOT NULL,
+        email       VARCHAR(80) NOT NULL UNIQUE,
+        senha       VARCHAR(30) NOT NULL,
 
-        PRIMARY KEY(ID)
+        PRIMARY KEY(id)
 
     )
     ENGINE=InnoDB
@@ -54,11 +54,11 @@
 
 
     mysqli_query($conexao, 
-    "CREATE TABLE IF NOT EXISTS Ficha(
-        ID          INT(10) NOT NULL AUTO_INCREMENT,
+    "CREATE TABLE IF NOT EXISTS ficha(
+        id          INT(10) NOT NULL AUTO_INCREMENT,
         id_usuario  INT(10) NOT NULL,
 
-        PRIMARY KEY(ID)
+        PRIMARY KEY(id)
 
     )
     ENGINE=InnoDB
@@ -68,7 +68,7 @@
 
 
     mysqli_query($conexao, 
-    "CREATE TABLE IF NOT EXISTS Ficha_Exercicio(
+    "CREATE TABLE IF NOT EXISTS ficha_Exercicio(
         id_ficha    INT(10) NOT NULL,
         id_exerc    INT(10) NOT NULL
 
