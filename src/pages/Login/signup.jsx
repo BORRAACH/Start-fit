@@ -18,14 +18,15 @@ import useAuth from '../../hooks/useAuth';
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [emailConfirm, setEmailConfirm] = useState('');
-  const [password, setPassword] = useState('');
+  const [nome, setNome] = useState('');
+  const [senha, setSenha] = useState('');
   const [error, setError] = useState(null);
 
   const { signup } = useAuth();
   const navigate = useNavigate();
 
   const handleSignup = () => {
-    if (!email | !emailConfirm | !password) {
+    if (!nome | !email | !emailConfirm | !senha) {
       setError('Os campos devem ser preenchidos corretamente');
       return;
     } else if (email !== emailConfirm) {
@@ -33,7 +34,7 @@ const Signup = () => {
       return;
     }
 
-    const res = signup(email, password);
+    const res = signup(nome, email, senha);
 
     if (res) {
       setError(res);
@@ -63,6 +64,20 @@ const Signup = () => {
             <Text fontSize={'2xl'} color={'white'}>
               Signup
             </Text>
+            <FormControl id="nome">
+              <FormLabel color={'white'}>nome</FormLabel>
+              <Stack spacing={5}>
+                <Input
+                  placeholder="Nome"
+                  type="nome"
+                  id="nomeSignup"
+                  name="nome"
+                  value={nome}
+                  color={'white'}
+                  onChange={(e) => [setNome(e.target.value), setError('')]}
+                />
+              </Stack>
+            </FormControl>
             <FormControl id="email">
               <FormLabel color={'white'}>Email</FormLabel>
               <Stack spacing={5}>
@@ -88,15 +103,15 @@ const Signup = () => {
                 />
               </Stack>
             </FormControl>
-            <FormControl id="password">
-              <FormLabel color={'white'}>Password</FormLabel>
+            <FormControl id="senha">
+              <FormLabel color={'white'}>senha</FormLabel>
               <Input
-                placeholder="Password"
-                type="password"
-                name="password"
+                placeholder="senha"
+                type="senha"
+                name="senha"
                 color={'white'}
-                value={password}
-                onChange={(e) => [setPassword(e.target.value), setError('')]}
+                value={senha}
+                onChange={(e) => [setSenha(e.target.value), setError('')]}
               />
               <FormLabel mt={5} color={'white'}>
                 Já está registrado?{' '}

@@ -14,27 +14,46 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import axios from 'axios';
 
 const Signin = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [senha, setSenha] = useState('');
   const [error, setError] = useState(null);
 
   const { signin, signed } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(localStorage);
-  });
-
   const handleLogin = () => {
-    if (!email | !password) {
+    if (!email | !senha) {
       setError('Os campos devem ser preenchidos corretamente');
       console.log(error);
       return;
     }
 
-    const res = signin(email, password);
+    axios
+      .get(
+        `http://localhost/Github/server/login.php?email=${email}&senha=${senha}`,
+      )
+      .then((response) => {
+        // Verifique a resposta do servidor
+        console.log(response.data);
+
+        // Você pode implementar uma lógica adicional aqui
+        // Com base na resposta do servidor, como redirecionar o usuário
+
+        if (response.data === 'Login bem-sucedido') {
+          // Redirecione o usuário após o login bem-sucedido
+          navigate('/');
+        } else {
+          setError('E-mail ou senha incorretos');
+        }
+      })
+      .catch((error) => {
+        console.error('Erro ao enviar requisição:', error);
+      });
+
+    const res = signin(email, senha);
     console.log(res);
 
     if (res) {
@@ -79,15 +98,15 @@ const Signin = () => {
                 onChange={(e) => [setEmail(e.target.value), setError('')]}
               />
             </FormControl>
-            <FormControl id="password">
-              <FormLabel color={'white'}>Password</FormLabel>
+            <FormControl id="senha">
+              <FormLabel color={'white'}>senha</FormLabel>
               <Input
-                placeholder="Password"
-                type="password"
-                name="password"
+                placeholder="senha"
+                type="senha"
+                name="senha"
                 color={'white'}
-                value={password}
-                onChange={(e) => [setPassword(e.target.value), setError('')]}
+                value={senha}
+                onChange={(e) => [setSenha(e.target.value), setError('')]}
               />
               <FormLabel mt={5} color={'white'}>
                 Ainda nao esta registrado?{' '}

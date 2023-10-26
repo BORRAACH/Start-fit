@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Text,
@@ -20,6 +20,7 @@ import { AiOutlineUser } from 'react-icons/ai';
 import SidebarIcon from '../assets/Icons/sidebar.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import axios from 'axios';
 
 const Sidebar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -33,6 +34,25 @@ const Sidebar = () => {
     navigator('/');
     return;
   };
+
+  const [userName, setUserName] = useState('');
+
+  const getUserName = () => {
+    axios
+      .get('http://localhost/Github/server/res_datausers.php')
+      .then((response) => {
+        console.log(response.data ? response.data : 'null');
+        setUserName(response.data.name);
+      })
+      .catch((error) => {
+        // Em caso de erro na requisição
+        console.error('Erro na requisição:', error);
+      });
+  };
+
+  useEffect(() => {
+    getUserName();
+  }, []);
 
   return (
     <>
@@ -50,13 +70,17 @@ const Sidebar = () => {
           <DrawerCloseButton />
           <DrawerHeader>Create your account</DrawerHeader>
 
-          <DrawerBody></DrawerBody>
+          <DrawerBody>
+            <Button colorScheme="blue" onClick={getUserName}>
+              get name
+            </Button>
+          </DrawerBody>
 
           <DrawerFooter alignItems={'center'}>
             <Button colorScheme={'blue'} onClick={handleLogout}>
               sair
             </Button>
-            <Text>Username</Text>
+            <Text>{userName ? userName : 'username'}</Text>
             <Link to="/login">
               <Button colorScheme="blue">
                 <AiOutlineUser />
