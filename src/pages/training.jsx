@@ -1,5 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { Box, Text, Flex, Grid, GridItem } from '@chakra-ui/react';
+import {
+  Box,
+  Text,
+  Flex,
+  Grid,
+  GridItem,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import SetExercisesTables from '../components/SetExercisesTables';
 import Skeleton from '../components/Skeleton';
@@ -9,6 +16,11 @@ const Training = () => {
   const [users, setUsers] = useState();
   const ref = useRef(null);
   const isInView = useInView(ref);
+
+  const bgBoxComponents = useColorModeValue(
+    'gray.100',
+    'RGBA(255, 255, 255, 0.06)',
+  );
 
   useEffect(() => {
     // Realiza uma requisição para obter dados do servidor
@@ -23,7 +35,6 @@ const Training = () => {
       });
   }, []);
 
-  console.log('inView: ', isInView);
   return (
     <Box
       as={motion.div}
@@ -50,14 +61,14 @@ const Training = () => {
             top={20}
             boxShadow="lg"
             borderRadius={10}
-            bg="gray.100"
+            bg={bgBoxComponents}
           ></Box>
         </GridItem>
         <GridItem
           p={4}
           borderRadius={10}
           colSpan={3}
-          bg="gray.100"
+          bg={bgBoxComponents}
           overflowY="scroll"
           boxShadow="lg"
         >
@@ -85,15 +96,23 @@ const Training = () => {
               rowSpan={1}
               borderRadius={5}
               minH="100%"
-              bg="gray.200"
+              gap={5}
+              p={10}
+              bg={bgBoxComponents}
             >
               <Text fontSize="xl">Usuários</Text>
               {users &&
                 users.map((user, index) => (
-                  <div key={index}>
+                  <Box
+                    key={index}
+                    bg={'blackAlpha.300'}
+                    mt={5}
+                    p={5}
+                    borderRadius={5}
+                  >
                     <Text>{user.email}</Text>
                     <Text>{user.senha}</Text>
-                  </div>
+                  </Box>
                 ))}
             </GridItem>
             <GridItem
@@ -101,7 +120,7 @@ const Training = () => {
               rowSpan={1}
               borderRadius={5}
               minH="100%"
-              bg="gray.100"
+              bg={bgBoxComponents}
             >
               <Skeleton />
             </GridItem>
@@ -110,7 +129,7 @@ const Training = () => {
               rowSpan={1}
               borderRadius={5}
               rowStart={2}
-              bg="gray.100"
+              bg={bgBoxComponents}
               minH="100%"
             >
               <Skeleton circle={true} />
@@ -120,7 +139,7 @@ const Training = () => {
               rowSpan={1}
               borderRadius={5}
               rowStart={2}
-              bg="gray.200"
+              bg={bgBoxComponents}
               minH="100%"
             >
               <Skeleton />

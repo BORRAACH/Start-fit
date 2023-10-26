@@ -13,6 +13,8 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  useColorMode,
+  useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
@@ -22,14 +24,15 @@ function SetExercisesTables() {
     <ModalOverlay
       bg="none"
       backdropFilter="auto"
-      backdropInvert="80%"
+      backdropInvert="5%"
       backdropBlur="2px"
     />
   );
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState();
-  const [checkboxValues, setCheckboxValues] = useState([]);
+
+  const bgBoxes = useColorModeValue('gray.50', 'gray.500');
 
   return (
     <>
@@ -52,7 +55,7 @@ function SetExercisesTables() {
           <ModalCloseButton />
           <ModalBody>
             <Container
-              bg={'gray.50'}
+              bg={bgBoxes}
               p={5}
               minW={'100%'}
               minH={200}

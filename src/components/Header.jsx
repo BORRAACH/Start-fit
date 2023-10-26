@@ -11,6 +11,7 @@ import {
   Text,
   useMediaQuery,
   useColorMode,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { mode } from '@chakra-ui/theme-tools';
 import useAuth from '../hooks/useAuth';
@@ -37,16 +38,18 @@ const Header = () => {
   const location = useLocation();
   const { signed } = useAuth();
 
-  const { colorMode } = useColorMode();
-  const color = colorMode === 'light' ? 'orange.300' : 'purple';
+  const bgPageButtons = useColorModeValue('orange.300', 'purple.300');
+  const colorIcons = useColorModeValue('0%', '100%');
 
   const HomeIconProps = {
-    bg: location.pathname === '/' ? `${color}` : '',
+    bg: location.pathname === '/' ? `${bgPageButtons}` : '',
   };
 
   const TablesIconProps = {
-    bg: location.pathname === '/training' ? `${color}` : '',
+    bg: location.pathname === '/training' ? `${bgPageButtons}` : '',
   };
+
+  const svgFilterInvert = useColorModeValue('none', 'invert(1)');
 
   return (
     <motion.div
@@ -61,13 +64,12 @@ const Header = () => {
             <Flex gap="1.5rem">
               <ListItem listStyleType={'none'}>
                 <Box className="sidebar-button" {...styles.box}>
-                  {/* <Image src={SidebarIcon} /> */}
-                  <Sidebar />
+                  <Sidebar filter={svgFilterInvert} />
                 </Box>
               </ListItem>
               {!isSmallerThan800 && (
                 <ListItem listStyleType={'none'} className="vertical-line">
-                  <Image src={VerticalLine} h={10} />
+                  <Image src={VerticalLine} filter={svgFilterInvert} h={10} />
                 </ListItem>
               )}
               {!isSmallerThan800 && (
@@ -75,19 +77,27 @@ const Header = () => {
                   <ListItem listStyleType={'none'} className="home-button">
                     <Link to="/">
                       <Box {...styles.box} {...HomeIconProps}>
-                        <Image src={HomeIcon} alt="home" />
+                        <Image
+                          src={HomeIcon}
+                          filter={svgFilterInvert}
+                          alt="home"
+                        />
                       </Box>
                     </Link>
                   </ListItem>
                   <ListItem listStyleType={'none'}>
                     <Link to="/training">
                       <Box {...styles.box} {...TablesIconProps}>
-                        <Image src={TablesIcon} alt="Tables" />
+                        <Image
+                          src={TablesIcon}
+                          filter={svgFilterInvert}
+                          alt="Tables"
+                        />
                       </Box>
                     </Link>
                   </ListItem>
                   <ListItem listStyleType={'none'} className="vertical-line">
-                    <Image src={VerticalLine} h={10} />
+                    <Image src={VerticalLine} filter={svgFilterInvert} h={10} />
                   </ListItem>
                 </>
               )}

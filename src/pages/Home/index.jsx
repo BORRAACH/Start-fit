@@ -1,7 +1,13 @@
-import { Text, Box, Flex, Container } from '@chakra-ui/react';
+import {
+  Text,
+  Box,
+  Flex,
+  Container,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 
-import { RadialGradient } from './style';
+import RadialGradient from './RadialGradientElem';
 
 function Home() {
   const styles = {
@@ -13,6 +19,14 @@ function Home() {
     },
   };
 
+  const bgTableGradient = useColorModeValue(
+    `linear-gradient(200deg, #fff 9.22%, rgba(255, 255, 255, 0) 90%)`,
+    `linear-gradient(200deg, rgba(0, 0, 0, 0.33) 9.74%, rgba(0, 0, 0, 0.00) 36.68%, #000 100.16%)`,
+  );
+  const boxShaddowGradient = useColorModeValue(
+    `0 0 10px 10px #b6b6b637`,
+    `0px 4px 4px rgba(255, 255, 255, 0.096)`,
+  );
   return (
     <>
       <RadialGradient />
@@ -23,16 +37,16 @@ function Home() {
         exit={{ opacity: 0, y: 10 }}
         transition={{ duration: 0.5, delay: 0.3 }}
       >
-        <Container w={'100%'} p={'2rem 3rem 3rem 3rem'} m={4}>
+        <Container p={'2rem 3rem 3rem 3rem'} m={4}>
           <Flex justifyContent={'space-between'}>
             <Box
-              backgroundImage={
-                'linear-gradient(200deg, #fff 9.22%, rgba(255, 255, 255, 0) 90%)'
-              }
-              boxShadow={'0 0 10px 10px #b6b6b637'}
+              backgroundImage={bgTableGradient}
+              boxShadow={boxShaddowGradient}
               borderRadius={10}
               p={12}
-              h={'2xl'}
+              ml={100}
+              mr={30}
+              minH={'2xl'}
             >
               <Text
                 fontFamily={'Ubuntu'}

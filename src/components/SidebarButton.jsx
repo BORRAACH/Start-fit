@@ -22,7 +22,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import axios from 'axios';
 
-const Sidebar = () => {
+const Sidebar = ({ filter }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
@@ -57,7 +57,7 @@ const Sidebar = () => {
   return (
     <>
       <Button ref={btnRef} bg={'none'} p={0} onClick={onOpen}>
-        <Image src={SidebarIcon}></Image>
+        <Image src={SidebarIcon} filter={filter}></Image>
       </Button>
       <Drawer
         isOpen={isOpen}

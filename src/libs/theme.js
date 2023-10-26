@@ -6,7 +6,7 @@ const styles = {
   global: (props) => ({
     transitionTimeFunction: 'linear',
     body: {
-      bg: mode('#F7FAFC', '#202023')(props),
+      bg: mode('#F7FAFC', 'RGBA(0, 0, 0, 0.64)')(props),
     },
   }),
 };
