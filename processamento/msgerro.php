@@ -1,11 +1,3 @@
-<?php
-
-if(isset($_SESSION["id"]))
-    echo "autenticado";
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +7,15 @@ if(isset($_SESSION["id"]))
     <title>Document</title>
 </head>
 <body>
-    
-    123
+
+<div>Houve um erro no cadastroKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK</div>    
 
 </body>
 </html>
+
+<?php 
+
+sleep(5);
+header("Location: pagina.php");
+
+?>
