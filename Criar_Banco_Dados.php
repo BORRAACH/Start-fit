@@ -64,7 +64,7 @@
     )
     ENGINE=InnoDB
     DEFAULT CHARSET utf8;")
-    or die('Erro na criação da tabela Ficha: ' . mysqli_error($conexao));
+    or die('Erro na criação da tabela ficha: ' . mysqli_error($conexao));
     echo '<center><p> Tabela Ficha criada </p></center>';
 
 
@@ -79,7 +79,7 @@
     )
     ENGINE=InnoDB
     DEFAULT CHARSET = utf8;")
-    or die('Erro na criação da tabela Ficha_exercicio: ' . mysqli_error($conexao));
+    or die('Erro na criação da tabela ficha_exercicio: ' . mysqli_error($conexao));
     echo '<center><p> Tabela Ficha_Exercicio criada </p></center>';
 
     mysqli_query($conexao, 
