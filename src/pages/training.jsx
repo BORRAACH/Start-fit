@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import SetExercisesTables from '../components/SetExercisesTables';
 import Skeleton from '../components/Skeleton';
 import { useInView } from 'framer-motion';
+import AddExercicios from '../components/addExercicios';
 
 const Training = () => {
   const [users, setUsers] = useState();
@@ -18,7 +19,7 @@ const Training = () => {
   const isInView = useInView(ref);
 
   const bgBoxComponents = useColorModeValue(
-    'gray.100',
+    'blackAlpha.100',
     'RGBA(255, 255, 255, 0.06)',
   );
 
@@ -71,6 +72,11 @@ const Training = () => {
           bg={bgBoxComponents}
           overflowY="scroll"
           boxShadow="lg"
+          style={{
+            WebkitScrollbar: { width: '2rem' },
+            WebkitScrollbarTrack: { background: '#fff' },
+            WebkitScrollbarThumb: {},
+          }}
         >
           <Flex alignItems="start" flexDirection="column">
             <SetExercisesTables />
@@ -105,7 +111,8 @@ const Training = () => {
                 users.map((user, index) => (
                   <Box
                     key={index}
-                    bg={'blackAlpha.300'}
+                    bg={'blackAlpha.50'}
+                    boxShadow={'md'}
                     mt={5}
                     p={5}
                     borderRadius={5}
@@ -122,7 +129,8 @@ const Training = () => {
               minH="100%"
               bg={bgBoxComponents}
             >
-              <Skeleton />
+              {/* <Skeleton /> */}
+              <AddExercicios />
             </GridItem>
             <GridItem
               colSpan={2}

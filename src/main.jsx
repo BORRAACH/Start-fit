@@ -9,7 +9,7 @@ import theme from './libs/theme';
 import { BrowserRouter } from 'react-router-dom';
 import RoutesApp from './routes';
 import { AuthProvider } from './contexts/auth.jsx';
-// import { ContextExercises } from './contexts/contextExercises.jsx';
+import { ExercisesProvider } from './contexts/contextExercises.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -18,12 +18,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
 
       <AuthProvider>
-        {/* <ContextExercises> */}
-        <BrowserRouter>
-          <Header />
-          <RoutesApp />
-        </BrowserRouter>
-        {/* </ContextExercises> */}
+        <ExercisesProvider>
+          <BrowserRouter>
+            <Header />
+            <RoutesApp />
+          </BrowserRouter>
+        </ExercisesProvider>
       </AuthProvider>
     </ChakraProvider>
   </React.StrictMode>,

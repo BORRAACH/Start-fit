@@ -6,8 +6,6 @@ export const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
 
-  const url = 'http://localhost/Github/server/data_response.php';
-
   useEffect(() => {
     const userToken = localStorage.getItem('user_token');
     const usersStorage = localStorage.getItem('users_bd');

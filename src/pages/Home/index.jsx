@@ -5,9 +5,11 @@ import {
   Container,
   useColorModeValue,
 } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 import RadialGradient from './RadialGradientElem';
+import ProjectInf from './projectInf';
 
 function Home() {
   const styles = {
@@ -17,16 +19,20 @@ function Home() {
       bg: '#d9d9d97f',
       borderRadius: '10px',
     },
+    table: {
+      bg: {
+        gradient: useColorModeValue(
+          `linear-gradient(200deg, #fff 9.22%, rgba(255, 255, 255, 0) 90%)`,
+          `linear-gradient(200deg, rgba(0, 0, 0, 0.33) 9.74%, rgba(0, 0, 0, 0.00) 36.68%, #000 100.16%)`,
+        ),
+      },
+      boxShadow: useColorModeValue(
+        `0 0 10px 10px #b6b6b637`,
+        `0px 2px 4px rgba(255, 255, 255, 0.096)`,
+      ),
+    },
   };
 
-  const bgTableGradient = useColorModeValue(
-    `linear-gradient(200deg, #fff 9.22%, rgba(255, 255, 255, 0) 90%)`,
-    `linear-gradient(200deg, rgba(0, 0, 0, 0.33) 9.74%, rgba(0, 0, 0, 0.00) 36.68%, #000 100.16%)`,
-  );
-  const boxShaddowGradient = useColorModeValue(
-    `0 0 10px 10px #b6b6b637`,
-    `0px 4px 4px rgba(255, 255, 255, 0.096)`,
-  );
   return (
     <>
       <RadialGradient />
@@ -40,8 +46,8 @@ function Home() {
         <Container p={'2rem 3rem 3rem 3rem'} m={4}>
           <Flex justifyContent={'space-between'}>
             <Box
-              backgroundImage={bgTableGradient}
-              boxShadow={boxShaddowGradient}
+              backgroundImage={styles.table.bg.gradient}
+              boxShadow={styles.table.boxShadow}
               borderRadius={10}
               p={12}
               ml={100}
@@ -171,6 +177,12 @@ function Home() {
               </Flex>
             </Box>
           </Flex>
+        </Container>
+        <Container minW={'100%'} mt={40}>
+          <AnimatePresence>
+            {' '}
+            <ProjectInf />
+          </AnimatePresence>
         </Container>
       </motion.div>
     </>

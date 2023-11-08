@@ -4,7 +4,7 @@ import {
   Checkbox,
   Container,
   Flex,
-  Input,
+  HStack,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -13,11 +13,12 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-  useColorMode,
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import useContextExercises from '../hooks/useContextExercises';
+import axios from 'axios';
 
 function SetExercisesTables() {
   const OverlayTwo = () => (
@@ -28,11 +29,107 @@ function SetExercisesTables() {
       backdropBlur="2px"
     />
   );
+  const bgBoxes = useColorModeValue('gray.50', 'gray.500');
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState();
+  const { getExercises } = useContextExercises();
 
-  const bgBoxes = useColorModeValue('gray.50', 'gray.500');
+  const [selectedExercises, setSelectedExercises] = useState([]);
+  const bgExercBox = useColorModeValue('blackAlpha.100', 'whiteAlpha.100');
+
+  const sendSelectedExercises = () => {
+    axios
+      .post(
+        'http://localhost/Github/server/monta_tabela.php',
+        selectedExercises,
+      )
+      .then((response) => {
+        console.log('Dados enviados com sucesso!', response);
+      })
+      .catch((error) => {
+        console.error('Erro ao enviar os dados:', error);
+      });
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      axios
+        .get('http://localhost/Github/server/get_exercicios.php')
+        .then((res) => {
+          const values = res.data;
+          console.log(values);
+          return values;
+        })
+        .then((values) => {
+          const categorizedExercises = values.reduce((acc, exercicio) => {
+            if (!acc[exercicio.categoria]) {
+              acc[exercicio.categoria] = [];
+            }
+            acc[exercicio.categoria].push(exercicio);
+            return acc;
+          }, {});
+
+          const categories = Object.keys(categorizedExercises);
+          const checkboxes = categories.map((categoria) => {
+            const exercicios = categorizedExercises[categoria].map(
+              (exercicio) => (
+                <Box
+                  key={exercicio.id_exercicio}
+                  h={150}
+                  w={'660px'}
+                  ml={10}
+                  borderRadius={5}
+                  bg={bgExercBox}
+                  p={10}
+                >
+                  <Checkbox
+                    value={exercicio.nome_exercicio}
+                    onChange={(e) => handleCheckboxChange(e, exercicio)}
+                  >
+                    {exercicio.nome_exercicio}
+                  </Checkbox>
+                </Box>
+              ),
+            );
+
+            return (
+              <Container
+                key={categoria}
+                bg={bgBoxes}
+                p={5}
+                mt={10}
+                w={'100%'}
+                maxW={'100%'} // Adicione esta linha
+                minH={200}
+                maxH={'xl'}
+                borderRadius={5}
+                overflowY={'hidden'}
+                overflowX={'scroll'}
+              >
+                <Text fontSize={'xl'}>{categoria}</Text>
+                <Flex>{exercicios}</Flex>
+              </Container>
+            );
+          });
+
+          setOverlay(<Box w={'100%'}>{checkboxes}</Box>);
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [isOpen]);
+
+  const handleCheckboxChange = (e, exercicio) => {
+    const { checked, value } = e.target;
+
+    if (checked) {
+      setSelectedExercises([...selectedExercises, exercicio]);
+    } else {
+      setSelectedExercises(
+        selectedExercises.filter((item) => item.id_exercicio !== value),
+      );
+    }
+  };
 
   return (
     <>
@@ -42,6 +139,7 @@ function SetExercisesTables() {
         onClick={() => {
           setOverlay(<OverlayTwo />);
           onOpen();
+          getExercises();
         }}
       >
         Use Overlay two
@@ -55,14 +153,20 @@ function SetExercisesTables() {
           <ModalCloseButton />
           <ModalBody>
             <Container
-              bg={bgBoxes}
               p={5}
+              className="container"
               minW={'100%'}
-              minH={200}
+              maxH={'2xl'}
               borderRadius={5}
-            ></Container>
+              overflowY={'scroll'}
+            >
+              <Flex w={'100%'}> {overlay}</Flex>
+            </Container>
           </ModalBody>
           <ModalFooter>
+            <Button onClick={sendSelectedExercises} colorScheme="blue">
+              Enviar
+            </Button>
             <Button onClick={onClose}>Close</Button>
           </ModalFooter>
         </ModalContent>

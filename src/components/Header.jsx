@@ -10,10 +10,8 @@ import {
   Box,
   Text,
   useMediaQuery,
-  useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
-import { mode } from '@chakra-ui/theme-tools';
 import useAuth from '../hooks/useAuth';
 import { motion } from 'framer-motion';
 
@@ -23,33 +21,44 @@ import HomeIcon from '../assets/Icons/home.svg';
 import TablesIcon from '../assets/Icons/tables.svg';
 import VerticalLine from '../assets/Icons/vertical_line.svg';
 
-const styles = {
-  box: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '5px',
-    p: 1,
-  },
-};
-
 const Header = () => {
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
   const location = useLocation();
   const { signed } = useAuth();
 
-  const bgPageButtons = useColorModeValue('orange.300', 'purple.300');
-  const colorIcons = useColorModeValue('0%', '100%');
+  const bgPageButtons = useColorModeValue('orange.300', 'purple.400');
 
   const HomeIconProps = {
     bg: location.pathname === '/' ? `${bgPageButtons}` : '',
   };
 
-  const TablesIconProps = {
+  const TrainingIconProps = {
     bg: location.pathname === '/training' ? `${bgPageButtons}` : '',
   };
 
-  const svgFilterInvert = useColorModeValue('none', 'invert(1)');
+  const styles = {
+    bg: {
+      tablesIconProps: () => {
+        location.pathname === '/training' ? `${bgPageButtons}` : '';
+      },
+      boxesOnTables: () => {
+        location.pathname === '/training' ? `${bgPageButtons}` : '';
+      },
+      svgFilterInvert: useColorModeValue('none', 'invert(1)'),
+      createButton: useColorModeValue('black', 'whiteAlpha.300'),
+    },
+    color: {},
+    filter: {},
+    components: {
+      box: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '5px',
+        p: 1,
+      },
+    },
+  };
 
   return (
     <motion.div
@@ -63,23 +72,27 @@ const Header = () => {
           <UnorderedList>
             <Flex gap="1.5rem">
               <ListItem listStyleType={'none'}>
-                <Box className="sidebar-button" {...styles.box}>
-                  <Sidebar filter={svgFilterInvert} />
+                <Box className="sidebar-button" {...styles.components.box}>
+                  <Sidebar filter={styles.bg.svgFilterInvert} />
                 </Box>
               </ListItem>
               {!isSmallerThan800 && (
                 <ListItem listStyleType={'none'} className="vertical-line">
-                  <Image src={VerticalLine} filter={svgFilterInvert} h={10} />
+                  <Image
+                    src={VerticalLine}
+                    filter={styles.bg.svgFilterInvert}
+                    h={10}
+                  />
                 </ListItem>
               )}
               {!isSmallerThan800 && (
                 <>
                   <ListItem listStyleType={'none'} className="home-button">
                     <Link to="/">
-                      <Box {...styles.box} {...HomeIconProps}>
+                      <Box {...styles.components.box} {...HomeIconProps}>
                         <Image
                           src={HomeIcon}
-                          filter={svgFilterInvert}
+                          filter={styles.bg.svgFilterInvert}
                           alt="home"
                         />
                       </Box>
@@ -87,17 +100,21 @@ const Header = () => {
                   </ListItem>
                   <ListItem listStyleType={'none'}>
                     <Link to="/training">
-                      <Box {...styles.box} {...TablesIconProps}>
+                      <Box {...styles.components.box} {...TrainingIconProps}>
                         <Image
                           src={TablesIcon}
-                          filter={svgFilterInvert}
+                          filter={styles.bg.svgFilterInvert}
                           alt="Tables"
                         />
                       </Box>
                     </Link>
                   </ListItem>
                   <ListItem listStyleType={'none'} className="vertical-line">
-                    <Image src={VerticalLine} filter={svgFilterInvert} h={10} />
+                    <Image
+                      src={VerticalLine}
+                      filter={styles.bg.svgFilterInvert}
+                      h={10}
+                    />
                   </ListItem>
                 </>
               )}
@@ -109,7 +126,7 @@ const Header = () => {
           {location.pathname === '/' ? (
             <Link to="/training">
               <Button
-                bg={mode('black', 'white')}
+                bg={styles.bg.createButton}
                 color="#fff"
                 borderRadius={5}
                 fontSize={'xl'}
@@ -123,7 +140,7 @@ const Header = () => {
           ) : (
             ''
           )}
-          {location.pathname !== '/' ? (
+          {location.pathname !== '/' && signed ? (
             <Link to="/login">
               <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
             </Link>

@@ -13,7 +13,7 @@ import useAuth from '../hooks/useAuth';
 const Private = () => {
   const { signed } = useAuth();
 
-  return signed > 0 ? <Home /> : <Signin />;
+  return signed > 0 ? <Training /> : <Signin />;
 };
 
 const RouteUser = () => {
@@ -26,9 +26,9 @@ const RoutesApp = () => {
   return (
     <Fragment>
       <Routes>
-        <Route exact path="/" element={<Private />} />
+        <Route exact path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />}></Route>
-        <Route path="/training" element={<Training />} />
+        <Route path="/training" element={<Private />} />
         <Route path="/create" element={<Create />} />
         <Route path="*" element={<Signin />} />
         <Route path="/user-config" element={<RouteUser />} />
