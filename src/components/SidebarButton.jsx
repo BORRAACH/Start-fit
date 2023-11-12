@@ -14,6 +14,7 @@ import {
   DrawerFooter,
   Flex,
   Box,
+  Icon,
 } from '@chakra-ui/react';
 import { AiOutlineUser } from 'react-icons/ai';
 
@@ -21,6 +22,7 @@ import SidebarIcon from '../assets/Icons/sidebar.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import axios from 'axios';
+import { SettingsIcon } from '@chakra-ui/icons';
 
 const Sidebar = ({ filter }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -29,9 +31,15 @@ const Sidebar = ({ filter }) => {
   const { signout } = useAuth();
   const navigator = useNavigate();
 
+  const links = [{ name: 'Config', link: '/config' }];
+
   const handleLogout = () => {
     signout();
     navigator('/');
+    return;
+  };
+
+  const iterableLinks = () => {
     return;
   };
 
@@ -74,18 +82,28 @@ const Sidebar = ({ filter }) => {
             <Button colorScheme="blue" onClick={getUserName}>
               get name
             </Button>
+            <Flex key={links.length} p={5} borderRadius={5}>
+              <SettingsIcon />
+              <Text>{links[0].name}</Text>
+            </Flex>
           </DrawerBody>
 
           <DrawerFooter alignItems={'center'}>
-            <Button colorScheme={'blue'} onClick={handleLogout}>
-              sair
-            </Button>
-            <Text>{userName ? userName : 'username'}</Text>
-            <Link to="/login">
-              <Button colorScheme="blue">
-                <AiOutlineUser />
+            <Flex
+              w={'100%'}
+              justifyContent={'space-between'}
+              alignItems={'center'}
+            >
+              <Button colorScheme={'blue'} onClick={handleLogout}>
+                sair
               </Button>
-            </Link>
+              <Text>{userName ? userName : 'username'}</Text>
+              <Link to="/login">
+                <Button colorScheme="blue">
+                  <AiOutlineUser />
+                </Button>
+              </Link>
+            </Flex>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

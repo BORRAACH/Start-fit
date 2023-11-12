@@ -4,7 +4,6 @@ import {
   Checkbox,
   Container,
   Flex,
-  HStack,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -29,7 +28,7 @@ function SetExercisesTables() {
       backdropBlur="2px"
     />
   );
-  const bgBoxes = useColorModeValue('gray.50', 'gray.500');
+  const bgBoxes = useColorModeValue('gray.50', 'blackAlpha.300');
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState();
@@ -77,7 +76,8 @@ function SetExercisesTables() {
                 <Box
                   key={exercicio.id_exercicio}
                   h={150}
-                  w={'660px'}
+                  position={'relative'}
+                  w={'md'}
                   ml={10}
                   borderRadius={5}
                   bg={bgExercBox}
@@ -105,7 +105,22 @@ function SetExercisesTables() {
                 maxH={'xl'}
                 borderRadius={5}
                 overflowY={'hidden'}
-                overflowX={'scroll'}
+                overflowX={'auto'}
+                css={{
+                  '&::-webkit-scrollbar': {
+                    width: 10,
+                    background: '#ffffff29',
+                    borderRadius: 10,
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    width: 2,
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    borderRadius: 10,
+                    width: 5,
+                    background: '#ffffff29',
+                  },
+                }}
               >
                 <Text fontSize={'xl'}>{categoria}</Text>
                 <Flex>{exercicios}</Flex>
@@ -151,14 +166,29 @@ function SetExercisesTables() {
             Select at exercises on the table
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody p={2}>
             <Container
               p={5}
               className="container"
               minW={'100%'}
               maxH={'2xl'}
               borderRadius={5}
-              overflowY={'scroll'}
+              overflowY={'auto'}
+              css={{
+                '&::-webkit-scrollbar': {
+                  width: 10,
+                  background: '#ffffff29',
+                  borderRadius: 10,
+                },
+                '&::-webkit-scrollbar-track': {
+                  width: '6px',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  borderRadius: 10,
+                  width: 5,
+                  background: '#ffffff29',
+                },
+              }}
             >
               <Flex w={'100%'}> {overlay}</Flex>
             </Container>
