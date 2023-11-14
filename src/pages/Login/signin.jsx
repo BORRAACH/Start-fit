@@ -1,26 +1,33 @@
+'use client';
+
 import {
-  Container,
-  Text,
-  Input,
-  Stack,
+  Flex,
+  Box,
   FormControl,
   FormLabel,
+  Input,
+  Checkbox,
+  Stack,
   Button,
-  Alert,
-  AlertIcon,
+  Heading,
+  Text,
+  useColorModeValue,
+  useToast,
 } from '@chakra-ui/react';
-import { AnimatePresence, motion } from 'framer-motion';
-
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import useAuth from '../../hooks/useAuth';
 import axios from 'axios';
+import { useState } from 'react';
+import useAuth from '../../hooks/useAuth';
+import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import layerWavesDark from '../../assets/img/layered-waves-haikei.svg';
+import LayerWavesLight from '../../assets/img/layered-waves-haikei-light-login.svg';
 
-const Signin = () => {
+export default function Signin() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [error, setError] = useState(null);
 
+  const toast = useToast();
   const { signin, signed } = useAuth();
   const navigate = useNavigate();
 
@@ -58,12 +65,18 @@ const Signin = () => {
 
     if (res) {
       setError(res);
+      toast({
+        title: 'Erro de login',
+        description: res,
+        status: 'error',
+        isClosable: true,
+      });
       console.log(error);
       return;
     }
 
     console.log(signed);
-    navigate('/');
+    navigate('/training');
     return;
   };
 
@@ -71,94 +84,84 @@ const Signin = () => {
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 10 }}
-      transition={{ delay: 1, duration: 0.5 }}
+      transition={{ type: 'spring', duration: 0.5, delay: 0.3 }}
     >
-      <Container
-        p={10}
-        bg={'blackAlpha.900'}
-        mt={10}
-        top={'50%'}
-        right={'36%'}
-        borderRadius={5}
+      <Flex
+        minH={'100vh'}
+        align={'flex-start'}
+        justify={'center'}
+        backgroundSize={'cover'}
+        backgroundImage={useColorModeValue(LayerWavesLight, layerWavesDark)}
+        backgroundRepeat={'no-repeat'}
       >
-        <FormControl>
-          <Stack spacing={5}>
-            <Text fontSize={'2xl'} color={'white'}>
-              Sigin
+        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+          <Stack align={'center'}>
+            <Heading fontSize={'4xl'} fontFamily={'Ubuntu'}>
+              Sign in to your account
+            </Heading>
+            <Text fontSize={'lg'} color={'gray.600'}>
+              to enjoy all of our cool <Text color={'blue.400'}>features</Text>{' '}
+              ✌️
             </Text>
-            <FormControl id="email">
-              <FormLabel color={'white'}>Email</FormLabel>
-              <Input
-                placeholder="E-mail"
-                type="email"
-                name="email"
-                value={email}
-                color={'white'}
-                onChange={(e) => [setEmail(e.target.value), setError('')]}
-              />
-            </FormControl>
-            <FormControl id="senha">
-              <FormLabel color={'white'}>senha</FormLabel>
-              <Input
-                placeholder="senha"
-                type="senha"
-                name="senha"
-                color={'white'}
-                value={senha}
-                onChange={(e) => [setSenha(e.target.value), setError('')]}
-              />
-              <FormLabel mt={5} color={'white'}>
-                Ainda nao esta registrado?{' '}
-                <Link to={'/signup'}>
-                  <Text color={'blue.400'}>Registre-se</Text>
-                </Link>
-              </FormLabel>
-            </FormControl>
-            <Button type="submit" onClick={handleLogin}>
-              Submit
-            </Button>
           </Stack>
-        </FormControl>
-        <AnimatePresence>
-          {error && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Alert status="error" mt={10} borderRadius={5}>
-                <AlertIcon />
-                {error}
-              </Alert>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </Container>
-      <Container>
-        <AnimatePresence>
-          {!email && (
-            <Alert
-              as={motion.div}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              borderRadius={5}
-              mt={5}
-            >
-              <AlertIcon />
-              <Text>
-                O usuário deve estar logado para ter acesso ao sistema de
-                criação de fichas
-              </Text>
-            </Alert>
-          )}
-        </AnimatePresence>
-      </Container>
+          <Box
+            rounded={'lg'}
+            minH={'md'}
+            maxH={'xl'}
+            minW={'md'}
+            maxW={'xl'}
+            bg={useColorModeValue('whiteAlpha.500', 'blackAlpha.500')}
+            boxShadow={'2xl'}
+            p={10}
+            css={{
+              backdropFilter: 'blur(20px)',
+            }}
+          >
+            <Stack spacing={4}>
+              <FormControl id="email">
+                <FormLabel>Email address</FormLabel>
+                <Input
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => [setEmail(e.target.value), setError('')]}
+                />
+              </FormControl>
+              <FormControl id="password">
+                <FormLabel>Password</FormLabel>
+                <Input
+                  type="password"
+                  name="senha"
+                  value={senha}
+                  onChange={(e) => [setSenha(e.target.value), setError('')]}
+                />
+              </FormControl>
+              <Stack spacing={10}>
+                <Stack
+                  direction={{ base: 'column', sm: 'row' }}
+                  align={'start'}
+                  justify={'space-between'}
+                >
+                  <Checkbox>Remember me</Checkbox>
+                  <Link to={'/signup'}>
+                    <Text color={'blue.400'}>Not registred ?</Text>
+                  </Link>
+                </Stack>
+                <Button
+                  bg={'blue.400'}
+                  color={'white'}
+                  _hover={{
+                    bg: 'blue.500',
+                  }}
+                  onClick={handleLogin}
+                >
+                  Sign in
+                </Button>
+              </Stack>
+            </Stack>
+          </Box>
+        </Stack>
+      </Flex>
     </motion.div>
   );
-};
-
-export default Signin;
+}

@@ -1,8 +1,7 @@
 import { AnimateSharedLayout, AnimatePresence } from 'framer-motion';
-import { Header } from './Header';
 import { Item } from './Item';
 import { List } from './List';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 function Store({ match }) {
   let { id } = match.params;
@@ -18,14 +17,11 @@ function Store({ match }) {
   );
 }
 
-export default function App() {
+export default function RouteCard() {
   return (
     <div className="container">
       <AnimateSharedLayout type="crossfade">
-        <Header />
-        <Router>
-          <Route path={['/:id', '/']} component={Store} />
-        </Router>
+        <Route path={['/:id', '/card']} component={Store} />
       </AnimateSharedLayout>
     </div>
   );

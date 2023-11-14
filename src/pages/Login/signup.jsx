@@ -1,21 +1,72 @@
-import {
-  Alert,
-  AlertIcon,
-  Button,
-  Container,
-  FormControl,
-  FormLabel,
-  Input,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import {
+  Box,
+  Flex,
+  Stack,
+  Heading,
+  Text,
+  Container,
+  Input,
+  Button,
+  SimpleGrid,
+  Avatar,
+  AvatarGroup,
+  useBreakpointValue,
+  Icon,
+  useToast,
+} from '@chakra-ui/react';
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
-const Signup = () => {
+const avatars = [
+  {
+    name: 'Ryan Florence',
+    url: 'https://bit.ly/ryan-florence',
+  },
+  {
+    name: 'Segun Adebayo',
+    url: 'https://bit.ly/sage-adebayo',
+  },
+  {
+    name: 'Kent Dodds',
+    url: 'https://bit.ly/kent-c-dodds',
+  },
+  {
+    name: 'Prosper Otemuyiwa',
+    url: 'https://bit.ly/prosper-baba',
+  },
+  {
+    name: 'Christian Nwamba',
+    url: 'https://bit.ly/code-beast',
+  },
+];
+
+const Blur = (props) => {
+  return (
+    <Icon
+      width={useBreakpointValue({ base: '100%', md: '40vw', lg: '30vw' })}
+      zIndex={useBreakpointValue({ base: -10, md: -1, lg: 0 })}
+      height="560px"
+      viewBox="0 0 528 560"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <circle cx="71" cy="61" r="111" fill="#F56565" />
+      <circle cx="244" cy="106" r="189" fill="#FF0066" />
+      <circle cy="291" r="139" fill="#ED64A6" />
+      <circle cx="80.5" cy="189.5" r="101.5" fill="#ED8936" />
+      <circle cx="196.5" cy="317.5" r="101.5" fill="#ECC94B" />
+      <circle cx="250.5" cy="558.5" r="201.5" fill="#6600FF" />
+      <circle cx="426.5" cy="-0.5" r="101.5" fill="#4299E1" />
+    </Icon>
+  );
+};
+
+export default function Signup() {
   const [email, setEmail] = useState('');
   const [emailConfirm, setEmailConfirm] = useState('');
   const [nome, setNome] = useState('');
@@ -23,14 +74,27 @@ const Signup = () => {
   const [error, setError] = useState(null);
 
   const { signup } = useAuth();
+  const toast = useToast();
   const navigate = useNavigate();
 
   const handleSignup = () => {
     if (!nome | !email | !emailConfirm | !senha) {
       setError('Os campos devem ser preenchidos corretamente');
+      toast({
+        title: 'Erro de login',
+        description: error,
+        status: 'error',
+        isClosable: true,
+      });
       return;
     } else if (email !== emailConfirm) {
       setError('Os emails nao coincidem');
+      toast({
+        title: 'Erro de login',
+        description: error,
+        status: 'error',
+        isClosable: true,
+      });
       return;
     }
 
@@ -41,108 +105,196 @@ const Signup = () => {
       return;
     }
 
-    navigate('/');
+    navigate('/signin');
   };
 
   return (
-    <motion.div
+    <Box
+      position={'relative'}
+      as={motion.div}
+      minH={'100vh'}
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 10 }}
-      transition={{ delay: 0.2, duration: 0.5 }}
+      transition={{ delay: 10, type: 'spring' }}
     >
       <Container
-        p={10}
-        bg={'blackAlpha.900'}
-        mt={10}
-        top={'50%'}
-        right={'36%'}
-        borderRadius={10}
+        as={SimpleGrid}
+        maxW={'7xl'}
+        columns={{ base: 1, md: 2 }}
+        spacing={{ base: 10, lg: 32 }}
+        py={{ base: 10, sm: 20, lg: 32 }}
       >
-        <FormControl>
-          <Stack spacing={5}>
-            <Text fontSize={'2xl'} color={'white'}>
-              Signup
-            </Text>
-            <FormControl id="nome">
-              <FormLabel color={'white'}>nome</FormLabel>
-              <Stack spacing={5}>
-                <Input
-                  placeholder="Nome"
-                  type="nome"
-                  id="nomeSignup"
-                  name="nome"
-                  value={nome}
-                  color={'white'}
-                  onChange={(e) => [setNome(e.target.value), setError('')]}
-                />
-              </Stack>
-            </FormControl>
-            <FormControl id="email">
-              <FormLabel color={'white'}>Email</FormLabel>
-              <Stack spacing={5}>
-                <Input
-                  placeholder="E-mail"
-                  type="email"
-                  id="emailSignup"
-                  name="email"
-                  value={email}
-                  color={'white'}
-                  onChange={(e) => [setEmail(e.target.value), setError('')]}
-                />
-                <Input
-                  placeholder="Confirme seu e-mail"
-                  type="email"
-                  name="emailConfirm"
-                  value={emailConfirm}
-                  color={'white'}
-                  onChange={(e) => [
-                    setEmailConfirm(e.target.value),
-                    setError(''),
-                  ]}
-                />
-              </Stack>
-            </FormControl>
-            <FormControl id="senha">
-              <FormLabel color={'white'}>senha</FormLabel>
-              <Input
-                placeholder="senha"
-                type="senha"
-                name="senha"
-                color={'white'}
-                value={senha}
-                onChange={(e) => [setSenha(e.target.value), setError('')]}
-              />
-              <FormLabel mt={5} color={'white'}>
-                Já está registrado?{' '}
-                <Link to={'/signin'}>
-                  <Text color={'blue.300'}>Entrar</Text>
-                </Link>
-              </FormLabel>
-            </FormControl>
-            <Button type="submit" onClick={handleSignup}>
-              Entrar
-            </Button>
-          </Stack>
-        </FormControl>
-        <AnimatePresence>
-          {error && (
+        <Stack spacing={{ base: 10, md: 20 }}>
+          <Heading
+            lineHeight={1.1}
+            fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}
+          >
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              transition={{ duration: 0.5 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 1, delay: 0.3, type: 'spring' }}
             >
-              <Alert status="error" mt={10} borderRadius={5}>
-                <AlertIcon />
-                {error}
-              </Alert>
+              Senior web designers
             </motion.div>
-          )}
-        </AnimatePresence>
+            <Text bgGradient="linear(to-r, red.400,pink.400)" bgClip="text">
+              &
+            </Text>{' '}
+            <Text>Full-Stack Developers</Text>
+          </Heading>
+          <Stack direction={'row'} spacing={4} align={'center'}>
+            <AvatarGroup>
+              {avatars.map((avatar) => (
+                <Avatar
+                  key={avatar.name}
+                  name={avatar.name}
+                  src={avatar.url}
+                  // eslint-disable-next-line react-hooks/rules-of-hooks
+                  size={useBreakpointValue({ base: 'md', md: 'lg' })}
+                  position={'relative'}
+                  zIndex={2}
+                  _before={{
+                    content: '""',
+                    width: 'full',
+                    height: 'full',
+                    rounded: 'full',
+                    transform: 'scale(1.125)',
+                    bgGradient: 'linear(to-bl, red.400,pink.400)',
+                    position: 'absolute',
+                    zIndex: -1,
+                    top: 0,
+                    left: 0,
+                  }}
+                />
+              ))}
+            </AvatarGroup>
+            <Text fontFamily={'heading'} fontSize={{ base: '4xl', md: '6xl' }}>
+              +
+            </Text>
+            <Flex
+              align={'center'}
+              justify={'center'}
+              fontFamily={'heading'}
+              fontSize={{ base: 'sm', md: 'lg' }}
+              bg={'gray.800'}
+              color={'white'}
+              rounded={'full'}
+              minWidth={useBreakpointValue({ base: '44px', md: '60px' })}
+              minHeight={useBreakpointValue({ base: '44px', md: '60px' })}
+              position={'relative'}
+              _before={{
+                content: '""',
+                width: 'full',
+                height: 'full',
+                rounded: 'full',
+                transform: 'scale(1.125)',
+                bgGradient: 'linear(to-bl, orange.400,yellow.400)',
+                position: 'absolute',
+                zIndex: -1,
+                top: 0,
+                left: 0,
+              }}
+            >
+              YOU
+            </Flex>
+          </Stack>
+        </Stack>
+        <Stack
+          bg={'gray.50'}
+          rounded={'xl'}
+          p={{ base: 4, sm: 6, md: 8 }}
+          spacing={{ base: 8 }}
+          maxW={{ lg: 'lg' }}
+        >
+          <Stack spacing={4}>
+            <Heading
+              color={'gray.800'}
+              lineHeight={1.1}
+              fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}
+            >
+              Join our team
+              <Text
+                as={'span'}
+                bgGradient="linear(to-r, red.400,pink.400)"
+                bgClip="text"
+              >
+                !
+              </Text>
+            </Heading>
+            <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>
+              We’re looking for amazing engineers just like you! Become a part
+              of our rockstar engineering team and skyrocket your career!
+            </Text>
+          </Stack>
+          <Box as={'form'} mt={10}>
+            <Stack spacing={4}>
+              <Input
+                placeholder="Firstname"
+                bg={'gray.100'}
+                border={0}
+                color={'gray.500'}
+                _placeholder={{
+                  color: 'gray.500',
+                }}
+                onChange={(e) => [setNome(e.target.value), setError('')]}
+              />
+              <Input
+                placeholder="firstname@lastname.io"
+                bg={'gray.100'}
+                border={0}
+                color={'gray.500'}
+                _placeholder={{
+                  color: 'gray.500',
+                }}
+                onChange={(e) => [setEmail(e.target.value), setError('')]}
+              />
+              <Input
+                placeholder="Confirm your email"
+                bg={'gray.100'}
+                border={0}
+                color={'gray.500'}
+                _placeholder={{
+                  color: 'gray.500',
+                }}
+                onChange={(e) => {
+                  setEmailConfirm(e.target.value);
+                }}
+              />
+              <Input
+                placeholder="Password"
+                bg={'gray.100'}
+                border={0}
+                color={'gray.500'}
+                _placeholder={{
+                  color: 'gray.500',
+                }}
+                onChange={(e) => [setSenha(e.target.value), setError('')]}
+              />
+            </Stack>
+            <Button
+              fontFamily={'heading'}
+              mt={8}
+              w={'full'}
+              bgGradient="linear(to-r, red.400,pink.400)"
+              color={'white'}
+              _hover={{
+                bgGradient: 'linear(to-r, red.400,pink.400)',
+                boxShadow: 'xl',
+              }}
+              onClick={handleSignup}
+            >
+              Submit
+            </Button>
+          </Box>
+          form
+        </Stack>
       </Container>
-    </motion.div>
+      <Blur
+        position={'absolute'}
+        top={-10}
+        left={-10}
+        style={{ filter: 'blur(70px)' }}
+      />
+    </Box>
   );
-};
-
-export default Signup;
+}

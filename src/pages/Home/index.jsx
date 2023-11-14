@@ -9,7 +9,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 import RadialGradient from './RadialGradientElem';
-import ProjectInf from './projectInf';
+import GridListWithHeading from '../../components/Feature/GridListWithHeading';
 
 function Home() {
   const styles = {
@@ -181,7 +181,7 @@ function Home() {
         <Container minW={'100%'} mt={40}>
           <AnimatePresence>
             {' '}
-            <ProjectInf />
+            <GridListWithHeading />
           </AnimatePresence>
         </Container>
       </motion.div>

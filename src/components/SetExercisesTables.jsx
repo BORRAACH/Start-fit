@@ -11,6 +11,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Stack,
   Text,
   useColorModeValue,
   useDisclosure,
@@ -22,20 +23,20 @@ import axios from 'axios';
 function SetExercisesTables() {
   const OverlayTwo = () => (
     <ModalOverlay
-      bg="none"
+      bg="blackAlpha.100"
       backdropFilter="auto"
       backdropInvert="5%"
-      backdropBlur="2px"
+      backdropBlur="10px"
     />
   );
-  const bgBoxes = useColorModeValue('gray.50', 'blackAlpha.300');
+  const bgContainers = useColorModeValue('white', 'blackAlpha.300');
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = useState();
   const { getExercises } = useContextExercises();
 
   const [selectedExercises, setSelectedExercises] = useState([]);
-  const bgExercBox = useColorModeValue('blackAlpha.100', 'whiteAlpha.100');
+  const bgExercBox = useColorModeValue('blackAlpha.50', 'whiteAlpha.100');
 
   const sendSelectedExercises = () => {
     axios
@@ -68,48 +69,54 @@ function SetExercisesTables() {
             acc[exercicio.categoria].push(exercicio);
             return acc;
           }, {});
+          const textColor = () => useColorModeValue('gray.700', 'gray.200');
 
           const categories = Object.keys(categorizedExercises);
           const checkboxes = categories.map((categoria) => {
             const exercicios = categorizedExercises[categoria].map(
               (exercicio) => (
-                <Box
+                <Flex
+                  alignItems={'center'}
+                  justifyContent={'center'}
                   key={exercicio.id_exercicio}
-                  h={150}
                   position={'relative'}
-                  w={'md'}
+                  minW={'2xs'}
+                  minH={'2xs'}
                   ml={10}
+                  boxShadow={'md'}
                   borderRadius={5}
                   bg={bgExercBox}
-                  p={10}
+                  p={5}
                 >
                   <Checkbox
                     value={exercicio.nome_exercicio}
                     onChange={(e) => handleCheckboxChange(e, exercicio)}
+                    fontWeight={'bold'}
+                    color={textColor}
                   >
                     {exercicio.nome_exercicio}
                   </Checkbox>
-                </Box>
+                </Flex>
               ),
             );
 
             return (
               <Container
                 key={categoria}
-                bg={bgBoxes}
+                bg={bgContainers}
                 p={5}
                 mt={10}
                 w={'100%'}
                 maxW={'100%'} // Adicione esta linha
                 minH={200}
-                maxH={'xl'}
+                maxH={'auto'}
+                boxShadow={'md'}
                 borderRadius={5}
                 overflowY={'hidden'}
                 overflowX={'auto'}
                 css={{
                   '&::-webkit-scrollbar': {
                     width: 10,
-                    background: '#ffffff29',
                     borderRadius: 10,
                   },
                   '&::-webkit-scrollbar-track': {
@@ -122,8 +129,10 @@ function SetExercisesTables() {
                   },
                 }}
               >
-                <Text fontSize={'xl'}>{categoria}</Text>
-                <Flex>{exercicios}</Flex>
+                <Stack spacing={5}>
+                  <Text fontSize={'xl'}>{categoria}</Text>
+                  <Flex>{exercicios}</Flex>
+                </Stack>
               </Container>
             );
           });
@@ -150,7 +159,8 @@ function SetExercisesTables() {
     <>
       <Button
         ml="4"
-        colorScheme="blue"
+        bg={useColorModeValue('orange.400', 'purple.400')}
+        color={'white'}
         onClick={() => {
           setOverlay(<OverlayTwo />);
           onOpen();
@@ -161,7 +171,11 @@ function SetExercisesTables() {
       </Button>
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
         {overlay}
-        <ModalContent minW={'6xl'} h={'4xl'}>
+        <ModalContent
+          minW={'6xl'}
+          h={'4xl'}
+          bg={useColorModeValue('yellow.50', '#1d1d1d')}
+        >
           <ModalHeader fontSize={'2xl'}>
             Select at exercises on the table
           </ModalHeader>
@@ -177,7 +191,6 @@ function SetExercisesTables() {
               css={{
                 '&::-webkit-scrollbar': {
                   width: 10,
-                  background: '#ffffff29',
                   borderRadius: 10,
                 },
                 '&::-webkit-scrollbar-track': {

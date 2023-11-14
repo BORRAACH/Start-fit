@@ -12,14 +12,16 @@ import {
   useMediaQuery,
   useColorModeValue,
 } from '@chakra-ui/react';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 import { motion } from 'framer-motion';
 
-import Sidebar from '../components/SidebarButton';
-import ThemeToggleButton from './theme-toggle-button';
-import HomeIcon from '../assets/Icons/home.svg';
-import TablesIcon from '../assets/Icons/tables.svg';
-import VerticalLine from '../assets/Icons/vertical_line.svg';
+import Sidebar from '../SidebarButton';
+import ThemeToggleButton from '../theme-toggle-button';
+import HomeIcon from '../../assets/Icons/home.svg';
+import TablesIcon from '../../assets/Icons/tables.svg';
+import VerticalLine from '../../assets/Icons/vertical_line.svg';
+import Nav from './dropdow';
+import Dropdown from './dropdow';
 
 const Header = () => {
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
@@ -140,13 +142,7 @@ const Header = () => {
           ) : (
             ''
           )}
-          {location.pathname !== '/' && signed ? (
-            <Link to="/login">
-              <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-            </Link>
-          ) : (
-            ''
-          )}
+          {location.pathname !== '/' && signed ? <Dropdown /> : ''}
         </Flex>
       </Container>
     </motion.div>
