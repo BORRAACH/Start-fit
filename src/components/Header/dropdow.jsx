@@ -15,17 +15,18 @@ import {
   MenuList,
   Text,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { FiLogOut } from 'react-icons/fi';
 
 export default function Dropdown() {
   const { signout } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     signout();
     console.log('certo');
-    navigator('/');
+    navigate('/training');
     return;
   };
 

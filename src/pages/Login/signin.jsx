@@ -14,7 +14,6 @@ import {
   useColorModeValue,
   useToast,
 } from '@chakra-ui/react';
-import axios from 'axios';
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
@@ -31,53 +30,38 @@ export default function Signin() {
   const { signin, signed } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (!email | !senha) {
+  const handleLogin = async () => {
+    if (!email || !senha) {
       setError('Os campos devem ser preenchidos corretamente');
-      console.log(error);
-      return;
-    }
-
-    axios
-      .get(
-        `http://localhost/Github/server/login.php?email=${email}&senha=${senha}`,
-      )
-      .then((response) => {
-        // Verifique a resposta do servidor
-        console.log(response.data);
-
-        // Você pode implementar uma lógica adicional aqui
-        // Com base na resposta do servidor, como redirecionar o usuário
-
-        if (response.data === 'Login bem-sucedido') {
-          // Redirecione o usuário após o login bem-sucedido
-          navigate('/');
-        } else {
-          setError('E-mail ou senha incorretos');
-        }
-      })
-      .catch((error) => {
-        console.error('Erro ao enviar requisição:', error);
-      });
-
-    const res = signin(email, senha);
-    console.log(res);
-
-    if (res) {
-      setError(res);
       toast({
         title: 'Erro de login',
-        description: res,
+        description: 'Os campos devem ser preenchidos corretamente',
         status: 'error',
         isClosable: true,
       });
-      console.log(error);
       return;
     }
 
-    console.log(signed);
-    navigate('/training');
-    return;
+    const res = await signin(email, senha);
+
+    if (res !== true) {
+      setError(res);
+      console.error('erro', res);
+      console.log('nao deu certo if (res !== true)');
+      toast({
+        title: 'Erro de login',
+        description: res,
+        colorScheme: 'red',
+        status: 'error',
+        isClosable: true,
+      });
+      return;
+    }
+
+    if (res) {
+      console.log('sucesso');
+      navigate('/training');
+    }
   };
 
   return (

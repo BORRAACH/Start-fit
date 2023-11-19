@@ -15,7 +15,7 @@ import {
 import useAuth from '../../hooks/useAuth';
 import { motion } from 'framer-motion';
 
-import Sidebar from '../SidebarButton';
+import Sidebar from './SidebarButton';
 import ThemeToggleButton from '../theme-toggle-button';
 import HomeIcon from '../../assets/Icons/home.svg';
 import TablesIcon from '../../assets/Icons/tables.svg';

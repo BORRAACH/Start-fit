@@ -102,6 +102,7 @@ export default function Signup() {
 
     if (res) {
       setError(res);
+      console.log(' fodeu');
       return;
     }
 

@@ -1,3 +1,4 @@
+import { useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { createContext, useEffect, useState } from 'react';
 
@@ -7,58 +8,73 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    const userToken = localStorage.getItem('user_token');
-    const usersStorage = localStorage.getItem('users_bd');
+    const cookieValue = getCookie();
 
-    if (userToken && usersStorage) {
-      const hasUser = JSON.parse(usersStorage)?.filter(
-        (user) => user.email === JSON.parse(userToken).email,
-      );
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(
+          'http://localhost/Github/server/inf_user.php',
+          cookieValue,
+        );
+        console.log('Resposta do servidor:', response.data);
 
-      if (hasUser) setUser(hasUser[0]);
+        if (response.data && response.data.length > 0) {
+          const firstUser = response.data[0];
+          setUser({
+            email: firstUser.email,
+            senha: firstUser.senha,
+          });
+          console.log('user (inside useEffect):', {
+            email: firstUser.email,
+            senha: firstUser.senha,
+          });
+        }
+      } catch (err) {
+        console.log(`ERROR: ${err}`);
+      }
+    };
+
+    if (cookieValue) {
+      fetchData();
     }
   }, []);
 
-  const signin = (email, senha) => {
-    const usersStorage = JSON.parse(localStorage.getItem('users_bd'));
+  const signin = async (email, senha) => {
+    console.log('Enviando: ', email, senha);
+    axios
+      .post(
+        'http://localhost/Github/server/login.php',
+        JSON.stringify({ email, senha }),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        },
+      )
+      .then((response) => {
+        console.log('Resposta do servidor: ', response);
 
-    const hasUser = usersStorage?.filter((user) => user.email === email);
+        if (response.data && response.data === true) {
+          console.log('passou_ line: 59');
+          const usersStorage =
+            JSON.parse(localStorage.getItem('users_bd')) || [];
+          console.log('usersStorage:', usersStorage);
 
-    if (hasUser?.length) {
-      if (hasUser[0].email === email && hasUser[0].senha === senha) {
-        const token = Math.random().toString(36).substring(2);
+          const hasUser = usersStorage.filter((user) => user.email === email);
+          console.log('hasUser:', hasUser);
 
-        const dataJson = JSON.stringify({ email, senha });
-
-        axios
-          .post('http://localhost/Github/server/login.php', dataJson, {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
-          .then((res) => {
-            console.log('Resposta do servidor: ', res);
-            if (res.data === true) {
-              localStorage.setItem(
-                'user_token',
-                JSON.stringify({ email, token }),
-              );
-              setUser({ email, senha });
-            } else {
-              console.log('Email ou senha incorretos');
-            }
-          })
-          .catch((err) => console.log('Error: ', err));
-
-        return;
-      } else {
-        console.log('E-mail ou senha incorretos');
-        return 'E-mail ou senha incorretos';
-      }
-    } else {
-      console.log('Usuário não cadastrado');
-      return 'Usuário não cadastrado';
-    }
+          const token = Math.random().toString(36).substring(2);
+          setUser({ email, senha }); // Atualiza o estado com os dados do usuário
+          localStorage.setItem('user_token', JSON.stringify({ email, token }));
+          console.log(`USER: ${user}`);
+          return true;
+        }
+      })
+      .catch((error) => {
+        console.log('Erro ao comunicar com o servidor', error);
+        return 'Erro ao comunicar com o servidor';
+      });
   };
 
   const signup = (nome, email, senha) => {
@@ -90,14 +106,22 @@ export const AuthProvider = ({ children }) => {
     return;
   };
 
+  const getCookie = () => {
+    const name = 'PHPSESSID';
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  };
+
   const signout = () => {
     setUser(null);
+    document.cookie = 'PHPSESSID=';
     localStorage.removeItem('user_token');
   };
 
   return (
     <AuthContext.Provider
-      value={{ user, signed: !!user, signin, signup, signout }}
+      value={{ user, signed: !!user, signin, signup, signout, getCookie }}
     >
       {children}
     </AuthContext.Provider>

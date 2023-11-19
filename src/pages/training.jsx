@@ -14,9 +14,18 @@ import { useInView } from 'framer-motion';
 import AddExercicios from '../components/addExercicios';
 import StackedWavesDark from '../assets/img/layered-waves-haikei-gray-purple.svg';
 import StackedWavesLight from '../assets/img/layered-waves-haikei-orange-yellow.svg';
+import axios from 'axios';
+import useAuth from '../hooks/useAuth';
 
 const DetailsOfDrils = ({ bg, users }) => {
   const bgBoxComponents = useColorModeValue('whiteAlpha.700', 'whiteAlpha.500');
+
+  const { getCookie } = useAuth();
+  const [id, setId] = useState();
+
+  useEffect(() => {
+    console.log(getCookie('PHPSESSID'));
+  }, []);
 
   return (
     <Grid
@@ -67,8 +76,7 @@ const DetailsOfDrils = ({ bg, users }) => {
         boxShadow={'2xl'}
         backdropFilter={'blur(30px)'}
       >
-        {/* <Skeleton /> */}
-        <AddExercicios />
+        {id}
       </GridItem>
       <GridItem
         colSpan={2}
@@ -111,7 +119,6 @@ const Training = () => {
       .then((response) => response.json())
       .then((data) => {
         setUsers(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error('Erro:', error);

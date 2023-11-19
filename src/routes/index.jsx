@@ -13,13 +13,13 @@ import UserConfig from '../pages/UserConfig';
 const Private = () => {
   const { signed } = useAuth();
 
-  return signed > 0 ? <Training /> : <Signin />;
+  return signed ? <Training /> : <Signin />;
 };
 
 const RouteUser = () => {
   const { signed } = useAuth();
 
-  return signed > 0 ? <UserConfig /> : <Signin />;
+  return signed ? <UserConfig /> : <Signin />;
 };
 
 const RoutesApp = () => {
