@@ -48,11 +48,12 @@ const Sidebar = ({ filter }) => {
     return;
   };
 
+  const { rota } = useAuth();
   const [userName, setUserName] = useState('');
 
   const getUserName = () => {
     axios
-      .get('http://localhost/Github/server/res_datausers.php')
+      .get(`${rota}/res_datausers.php`)
       .then((response) => {
         console.log(response.data ? response.data : 'null');
         setUserName(response.data.name);
@@ -81,9 +82,9 @@ const Sidebar = ({ filter }) => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader fontFamily={'Ubuntu'}>Create your account</DrawerHeader>
 
           <DrawerBody
+            pt={10}
             css={{
               '&::-webkit-scrollbar': {
                 width: 10,

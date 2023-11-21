@@ -10,8 +10,6 @@ import {
   Input,
   Button,
   SimpleGrid,
-  Avatar,
-  AvatarGroup,
   useBreakpointValue,
   Icon,
   useToast,
@@ -142,69 +140,13 @@ export default function Signup() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 1, delay: 0.3, type: 'spring' }}
             >
-              Senior web designers
+              Experimente uma nova
             </motion.div>
             <Text bgGradient="linear(to-r, red.400,pink.400)" bgClip="text">
               &
             </Text>{' '}
-            <Text>Full-Stack Developers</Text>
+            <Text>Experiencia na criação de treinos</Text>
           </Heading>
-          <Stack direction={'row'} spacing={4} align={'center'}>
-            <AvatarGroup>
-              {avatars.map((avatar) => (
-                <Avatar
-                  key={avatar.name}
-                  name={avatar.name}
-                  src={avatar.url}
-                  // eslint-disable-next-line react-hooks/rules-of-hooks
-                  size={useBreakpointValue({ base: 'md', md: 'lg' })}
-                  position={'relative'}
-                  zIndex={2}
-                  _before={{
-                    content: '""',
-                    width: 'full',
-                    height: 'full',
-                    rounded: 'full',
-                    transform: 'scale(1.125)',
-                    bgGradient: 'linear(to-bl, red.400,pink.400)',
-                    position: 'absolute',
-                    zIndex: -1,
-                    top: 0,
-                    left: 0,
-                  }}
-                />
-              ))}
-            </AvatarGroup>
-            <Text fontFamily={'heading'} fontSize={{ base: '4xl', md: '6xl' }}>
-              +
-            </Text>
-            <Flex
-              align={'center'}
-              justify={'center'}
-              fontFamily={'heading'}
-              fontSize={{ base: 'sm', md: 'lg' }}
-              bg={'gray.800'}
-              color={'white'}
-              rounded={'full'}
-              minWidth={useBreakpointValue({ base: '44px', md: '60px' })}
-              minHeight={useBreakpointValue({ base: '44px', md: '60px' })}
-              position={'relative'}
-              _before={{
-                content: '""',
-                width: 'full',
-                height: 'full',
-                rounded: 'full',
-                transform: 'scale(1.125)',
-                bgGradient: 'linear(to-bl, orange.400,yellow.400)',
-                position: 'absolute',
-                zIndex: -1,
-                top: 0,
-                left: 0,
-              }}
-            >
-              YOU
-            </Flex>
-          </Stack>
         </Stack>
         <Stack
           bg={'gray.50'}
@@ -219,7 +161,7 @@ export default function Signup() {
               lineHeight={1.1}
               fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}
             >
-              Join our team
+              Cadastre-se
               <Text
                 as={'span'}
                 bgGradient="linear(to-r, red.400,pink.400)"
@@ -229,8 +171,8 @@ export default function Signup() {
               </Text>
             </Heading>
             <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>
-              We’re looking for amazing engineers just like you! Become a part
-              of our rockstar engineering team and skyrocket your career!
+              Contamos com a sua contribuição para a contribuição de você e
+              diversas outras pessoas para o funcionamento do projeto
             </Text>
           </Stack>
           <Box as={'form'} mt={10}>
@@ -299,6 +241,7 @@ export default function Signup() {
       <Blur
         position={'absolute'}
         top={-10}
+        zIndex={-100}
         left={-10}
         style={{ filter: 'blur(70px)' }}
       />

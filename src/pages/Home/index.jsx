@@ -43,7 +43,7 @@ function Home() {
       ),
     },
   };
-  const bgColor = useColorModeValue('blackAlpha.300', 'whiteAlpha.300');
+  const bgColor = useColorModeValue('blackAlpha.100', 'whiteAlpha.300');
   const [isMaiorQue768] = useMediaQuery('(min-width: 768px)');
 
   useEffect(() => {
@@ -102,7 +102,12 @@ function Home() {
                       bg={bgColor}
                       borderRadius={5}
                     >
-                      <Text color={'whiteAlpha.800'}>
+                      <Text
+                        color={useColorModeValue(
+                          'blackAlpha.900',
+                          'whiteAlpha.800',
+                        )}
+                      >
                         Exercicio {index + 1}
                       </Text>
                     </Container>
@@ -207,9 +212,7 @@ function Home() {
           pt={20}
           pb={20}
         >
-          <AnimatePresence>
-            <AccordingElement></AccordingElement>
-          </AnimatePresence>
+          <AnimatePresence></AnimatePresence>
         </Container>
       </motion.div>
     </>

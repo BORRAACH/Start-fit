@@ -51,15 +51,14 @@ function SetExercisesTables({
   const [nomeFicha, setNomeFicha] = useState();
   const [fichas, setFichas] = useState();
   const [selectedExercises, setSelectedExercises] = useState([]);
+  const { rota } = useContextExercises();
 
   const bgExercBox = useColorModeValue('blackAlpha.50', 'whiteAlpha.100');
   const scroll = useColorModeValue('RGBA(0, 0, 0, 0.16)', '#ffffff29');
 
   const loadExercises = async () => {
     try {
-      const res = await axios.get(
-        'http://localhost/Github/server/get_exercicios.php',
-      );
+      const res = await axios.get(`${rota}/get_exercicios.php`);
       const values = res.data;
 
       const categorizedExercises = values.reduce((acc, exercicio) => {
@@ -172,7 +171,7 @@ function SetExercisesTables({
       }));
 
       const response = await axios.post(
-        'http://localhost/Github/server/monta_ficha.php',
+        `${rota}/monta_ficha.php`,
         exercisesWithIdUser,
       );
       console.log('Dados enviados com sucesso!', response);
