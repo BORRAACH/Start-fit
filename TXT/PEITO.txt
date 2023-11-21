@@ -1,15 +1,35 @@
-Supino - Punho Amplo (Barra)
-Supino (haltere)
-Mergulho no peito (ponderado)
-Flexões inclinadas
-Pressão de chão (barra)
-Linha Pendlay
-Prensa de Placa
-Ao redor do mundo
-Flexão para cima (ponderada)
-Pulôver (haltere)
-Recusar supino (haltere)
-Supino inclinado (barra)
-Supino inclinado (haltere)
-Mergulho no peito
-Supino (barra)
+Supino reto com barra.
+Supino inclinado com barra.
+Supino declinado com barra.
+Supino com halteres.
+Supino inclinado com halteres.
+Supino declinado com halteres.
+Flyes com halteres.
+Flyes inclinados com halteres.
+Flyes declinados com halteres.
+Crucifixo na máquina.
+Pulldown na polia alta (crossover).
+Push-ups (flexões) com pega larga.
+Máquina de peitoral (pec deck).
+Pullover com halteres.
+Flexões (push-ups) com pega estreita.
+Pulldown na polia alta (crossover) com pega inversa.
+Press com barra no Smith Machine.
+Mergulhos em paralelas (para o peito).
+Flyes inclinados na máquina.
+Flexões declinadas (com os pés elevados).
+Supino na máquina Smith.
+Flexões com uma mão.
+Supino com barra hexagonal.
+Flyes com elásticos de resistência.
+Supino com halteres inclinados na bola suíça.
+Flexões isométricas (push-ups isométricos).
+Supino declinado com barra hexagonal.
+Press inclinado com barra.
+Push-ups com as mãos em forma de diamante.
+Supino declinado na máquina.
+Supino fechado com barra.
+Flyes na máquina Smith.
+Flyes inclinados com elásticos de resistência.
+Push-ups com rotação (T-push-ups).
+Push-ups em suspensão (suspension push-ups).

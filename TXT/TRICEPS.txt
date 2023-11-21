@@ -1,11 +1,35 @@
-Supino - Close Grip (Barra)
-Mergulho de tríceps (ponderado)
-Extensão de tríceps com um braço (haltere)
-Extensão de tríceps (barra)
-Esmagador de crânios (barra)
-Esmagador de crânios com halteres
-Flexão de diamante
-Mergulhos de anel
-Extensão de tríceps (suspensão)
-Empurrão de corda de tríceps
-Retrocesso de tríceps
+Tríceps mergulho (Dips) em paralelas.
+Extensões de tríceps com barra reta.
+Extensões de tríceps com barra EZ (barra Z).
+Tríceps testa com barra.
+Tríceps testa com barra EZ.
+Tríceps testa com halteres.
+Tríceps coice com halteres.
+Rosca francesa (Skull Crushers) com barra reta.
+Rosca francesa com barra EZ.
+Rosca francesa com halteres.
+Tríceps coice com barra reta.
+Tríceps coice na máquina Smith.
+Rosca francesa com corda na polia alta.
+Tríceps testa na máquina Smith.
+Extensões de tríceps com halteres sobrecarga (sob a cabeça).
+Tríceps na máquina de tríceps.
+Extensões de tríceps na polia alta.
+Tríceps mergulho (Dips) assistido na máquina.
+Extensões de tríceps no cabo com puxada alta.
+Tríceps com puxada alta na máquina Smith.
+Tríceps mergulho (Dips) no banco.
+Tríceps com corda no cabo.
+Tríceps mergulho (Dips) entre bancos.
+Tríceps mergulho (Dips) nas paralelas com pernas elevadas.
+Tríceps mergulho (Dips) com rodas abdutoras.
+Tríceps coice com puxada alta na polia.
+Tríceps testa com barra T.
+Tríceps na polia baixa com barra V.
+Tríceps na polia baixa com corda.
+Tríceps na polia baixa com pega neutra.
+Tríceps com elástico de resistência.
+Tríceps em suspensão (Suspension Triceps Dips).
+Tríceps em TRX.
+Tríceps com TRX (Tricep Extension).
+Tríceps na polia baixa com puxada alta.

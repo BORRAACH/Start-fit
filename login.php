@@ -2,46 +2,50 @@
 
 // Conexão com o banco de dados (substitua os valores conforme necessário)
 $conexao = mysqli_connect('localhost', 'root', '', 'maromba_etec')
-        or die('Erro na conexão com o MySQL: ' . mysqli_connect_error($conexao));
+    or die('Erro na conexão com o MySQL: ' . mysqli_connect_error($conexao));
 
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: *');
+header('Access-Control-Allow-Origin: http://localhost:5173');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Credentials: true');
+
 
 $json = file_get_contents('php://input');
 
-// Converte o JSON em um array associativo
 $data = json_decode($json, true);
 
-// Verifica se os dados do formulário foram enviados corretamente
-if (isset($data['email'], $data['senha'])){    // Recebe os dados do formulário
+if (isset($data['email'], $data['senha'])) {  
     $email = $data['email'];
     $senha = $data['senha'];
 
-    // Consulta o banco de dados para verificar se o usuário existe
-    $sql = "SELECT * FROM usuario WHERE email='$email' AND senha='$senha'";
+    $sql = "SELECT * FROM g5_usuario WHERE email='$email'";
     $resultado = mysqli_query($conexao, $sql);
 
-    // Verifica se a consulta foi bem-sucedida
     if ($resultado) {
-        // Verifica se encontrou um usuário correspondente
         if (mysqli_num_rows($resultado) == 1) {
-            // Autenticação bem-sucedida
-            echo json_encode(true);
+            $user = mysqli_fetch_array($resultado);     
+
+            if ($senha == $user['senha']) {
+                session_id($user['id']);
+                session_start();
+                echo json_encode(true);
+            } else {
+                echo json_encode(false);
+                error_log("Senha incorreta para o usuário com email: $email");
+            }
         } else {
-            // Usuário não encontrado ou senha incorreta
             echo json_encode(false);
+            error_log("Usuário não encontrado com email: $email");
         }
     } else {
-        // Erro na consulta
         echo json_encode(false);
+        error_log("Erro na consulta SQL: " . mysqli_error($conexao));
     }
 } else {
-    echo 'otario';
     echo json_encode(false);
+    error_log("Dados do formulário não fornecidos corretamente");
 }
 
-// Fecha a conexão com o banco de dados
 mysqli_close($conexao);
 
 ?>

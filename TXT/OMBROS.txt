@@ -1,8 +1,35 @@
-Flexão de mão
-Arnold Press (haltere)
-Puxar rosto
-Pressão suspensa sentada (barra)
-Elevação frontal da placa
-Imprensa Militar em Pé (Barra)
-Empurre Pressione
-Elevação lateral (haltere)
+Desenvolvimento com barra (Militar Press).
+Desenvolvimento com halteres.
+Desenvolvimento Arnold.
+Elevação frontal com barra.
+Elevação frontal com halteres.
+Elevação frontal na máquina.
+Elevação frontal com cabo.
+Elevação frontal com elástico de resistência.
+Elevação frontal com barra Z.
+Elevação frontal com halteres inclinados.
+Elevação frontal com disco.
+Elevação lateral com halteres.
+Elevação lateral na máquina.
+Elevação lateral com cabo.
+Elevação lateral com elástico de resistência.
+Elevação lateral com barra Z.
+Elevação lateral com halteres inclinados.
+Elevação lateral no cross.
+Elevação lateral com pega neutra.
+Elevação lateral na máquina Smith.
+Elevação posterior com halteres.
+Elevação posterior com cabo.
+Elevação posterior na máquina.
+Elevação posterior com elástico de resistência.
+Elevação posterior na polia alta.
+Remada alta (para trabalhar os deltoides posteriores).
+Desenvolvimento com barra na máquina Smith.
+Press arnold.
+Máquina de press militar.
+Push press.
+Máquina de press inclinado.
+Elevação de halteres de Arnold.
+Desenvolvimento com puxada alta (push press com puxada).
+Desenvolvimento com push press.
+Prensa de ombros na máquina Smith.

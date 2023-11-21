@@ -8,7 +8,7 @@
                 or die("Erro na seleção do Banco: " . mysqli_error($connection));
 
   $dataUsers = mysqli_query($connection, 
-    "SELECT nome, email, senha FROM usuario")
+    "SELECT nome, email, senha FROM g5_usuario")
     or die('Erro na Inserção de dados: ' . mysqli_error($connection));
 
     $data = array();

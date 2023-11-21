@@ -19,12 +19,12 @@ if (isset($data['nome'], $data['email'], $data['senha'])) {
     $senha = $data['senha'];
 
     // Verificar se o e-mail já existe
-    $check_email = mysqli_query($conexao, "SELECT * FROM usuario WHERE email='$email'");
+    $check_email = mysqli_query($conexao, "SELECT * FROM g5_usuario WHERE email='$email'");
     if (mysqli_num_rows($check_email) > 0) {
         echo 'Este e-mail já está cadastrado.';
     } else {
         // Usar prepared statement para evitar injeção de SQL
-        $stmt = $conexao->prepare("INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)");
+        $stmt = $conexao->prepare("INSERT INTO g5_usuario (nome, email, senha) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $nome, $email, $senha);
         $stmt->execute();
         $stmt->close();

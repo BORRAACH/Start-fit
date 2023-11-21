@@ -1,7 +1,35 @@
-Levantamento terra com perna rígida/estica
-Levantamento terra (haltere)
-Deadlift romeno de perna única (haltere)
-Flexões de pernas em pé
-Levantamento terra (banda)
-Aumento de presunto de glúteo
-Bom dia (Barra)
+Pernas flexionadas (Leg Curl) deitado (isométrico).
+Extensão de quadril com as pernas flexionadas (Glute Bridge).
+Avanço com uma perna (Lunges).
+Avanço búlgaro (Bulgarian Split Squat).
+Extensão de quadril com uma perna (Single-leg Glute Bridge).
+Avanço com uma perna no TRX.
+Pernas flexionadas (Leg Curl) em máquina Smith (isométrico).
+Pernas flexionadas (Leg Curl) com bola suíça.
+Extensão de quadril com deslizadores (Slider Leg Curl).
+Pernas flexionadas (Leg Curl) deitado com halteres (isométrico).
+Stiff leg deadlift.
+Levantamento terra com as pernas retas (Straight Leg Deadlift).
+Levantamento terra romeno (Romanian Deadlift).
+Agachamento com barra (Squat) (fortalece os isquiotibiais como sinergistas).
+Leg Curl na máquina.
+Leg Curl na máquina Smith.
+Leg Curl na máquina deitado.
+Pernas flexionadas (Leg Curl) na máquina de Hammer Strength.
+Pernas flexionadas (Leg Curl) na máquina de isquiotibiais em 45 graus.
+Pernas flexionadas (Leg Curl) na máquina de isquiotibiais em 90 graus.
+Leg Curl na máquina de extensão de quadril.
+Flexão de quadril na máquina Smith.
+Curl de isquiotibiais em suspensão (Suspension Leg Curl).
+Levantamento de quadril com halteres (Hamstring Curl with Dumbbells).
+Curl de isquiotibiais com elástico de resistência.
+Pernas flexionadas (Leg Curl) em máquina de cabo.
+Extensão de quadril na máquina Smith com pernas retas.
+Pernas flexionadas (Leg Curl) com elástico de resistência.
+Extensão de quadril com puxada alta (Kettlebell Swing).
+Flexão de quadril na máquina Smith.
+Levantamento de quadril (Hip Thrust) na máquina Smith.
+Power Clean (auxilia no fortalecimento dos isquiotibiais como sinergistas).
+Levantamento Terra (Deadlift) (fortalece os isquiotibiais como sinergistas).
+Agachamento com barra (Squat) (fortalece os isquiotibiais como sinergistas).
+Sprint (corrida de alta velocidade).

@@ -2,7 +2,7 @@
 
 $conexao = mysqli_connect('localhost', 'root', '', 'maromba_etec');
 
-header('Access-Control-Allow-Origin: http://localhost:5173');
+header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $valorDoInput = $_POST['valorDoInput'];
 
         // Prepara a consulta para inserir na tabela 'exercicios'
-        $query = "INSERT INTO exercicios (id, nome, categoria) VALUES (DEFAULT, '$valorDoInput', 'valorDaCategoria')";
+        $query = "INSERT INTO g5_exercicios (id, nome, categoria) VALUES (DEFAULT, '$valorDoInput', 'valorDaCategoria')";
 
         // Executa a consulta
         if (mysqli_query($conexao, $query)) {

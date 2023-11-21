@@ -1,15 +1,35 @@
-Levantamento terra de sumô
-Agachamento com taça Kettlebell
-Agachamento Sumô (barra)
-Estocada reversa
-Agachamento dividido (halteres)
-Estocada (barra)
-Agachamento maricas
-Agachamento em Cálice
-Estocada (haltere)
-Agachamento com Salto
-Sente-se na parede
-Agachamento frontal
-Agachamento Zercher
-Agachamento hackeado
-Agachamento Lateral
+Agachamento (Squat).
+Agachamento frontal (Front Squat).
+Agachamento sumô (Sumo Squat).
+Agachamento unilateral (Bulgarian Split Squat).
+Agachamento goblet.
+Avanço (Lunge).
+Avanço na caixa (Box Step-Up).
+Prensa de pernas (Leg Press).
+Agachamento com salto (Jump Squat).
+Agachamento com barra Smith (Smith Machine Squat).
+Agachamento com barra hexagonal (Hex Bar Squat).
+Agachamento com pés elevados (High Box Squat).
+Agachamento zercher (Zercher Squat).
+Agachamento frontal com barra hexagonal.
+Agachamento em máquina de Smith com os pés à frente.
+Agachamento pliométrico (Plyometric Squat).
+Agachamento isométrico (Isometric Squat).
+Agachamento hack (Hack Squat).
+Agachamento Smith unilateral.
+Agachamento com barra traseira (Back Squat).
+Agachamento com barra Z (Zercher Squat).
+Agachamento com halteres.
+Agachamento em máquina Smith.
+Agachamento com barra Smith na máquina de pressão de quadríceps.
+Prensa 45 graus.
+Prensa inclinada.
+Prensa de quadríceps.
+Prensa com os pés afastados.
+Prensa com os pés juntos.
+Prensa com pés estreitos.
+Extensão de pernas na máquina.
+Hack squat na máquina.
+Máquina de agachamento Smith.
+Extensão de quadríceps na máquina.
+Extensão de quadríceps com polia.

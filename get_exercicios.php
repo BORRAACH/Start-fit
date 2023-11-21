@@ -8,7 +8,7 @@ if (!$conexao) {
     die('Erro na conexão com o MySQL: ' . mysqli_connect_error());
 }
 
-$query = "SELECT * FROM exercicios";
+$query = "SELECT * FROM g5_exercicios";
 $resultado = mysqli_query($conexao, $query);
 
 if (!$resultado) {

@@ -4,7 +4,7 @@ $connection = mysqli_connect('localhost', 'root', '', 'maromba_etec');
 header('Access-Control-Allow-Origin: *');
 
 $dataUsers = mysqli_query($connection, 
-    "SELECT email, senha FROM usuario")
+    "SELECT email, senha FROM g5_usuario")
     or die('Erro na Inserção de dados: ' . mysqli_error());
 
 // Array para armazenar os dados
