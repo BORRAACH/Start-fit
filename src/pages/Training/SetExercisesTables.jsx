@@ -4,7 +4,10 @@ import {
   Checkbox,
   Container,
   Flex,
+  FormControl,
+  FormLabel,
   HStack,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -14,14 +17,22 @@ import {
   ModalOverlay,
   Stack,
   Text,
+  VStack,
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import useContextExercises from '../hooks/useContextExercises';
+import useContextExercises from '../../hooks/useContextExercises';
 import axios from 'axios';
+import useAuth from '../../hooks/useAuth';
 
-function SetExercisesTables() {
+function SetExercisesTables({
+  isOpen,
+  onOpen,
+  onClose,
+  setForceRender,
+  forceRender,
+}) {
   const OverlayTwo = () => (
     <ModalOverlay
       bg="blackAlpha.100"
@@ -33,12 +44,16 @@ function SetExercisesTables() {
   const bgContainers = useColorModeValue('white', 'blackAlpha.300');
   const textColor = useColorModeValue('gray.700', 'gray.200');
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [overlay, setOverlay] = useState();
-  const { getExercises } = useContextExercises();
+  const { getCookie } = useAuth();
+  const { getFichas } = useContextExercises();
 
+  const [overlay, setOverlay] = useState();
+  const [nomeFicha, setNomeFicha] = useState();
+  const [fichas, setFichas] = useState();
   const [selectedExercises, setSelectedExercises] = useState([]);
+
   const bgExercBox = useColorModeValue('blackAlpha.50', 'whiteAlpha.100');
+  const scroll = useColorModeValue('RGBA(0, 0, 0, 0.16)', '#ffffff29');
 
   const loadExercises = async () => {
     try {
@@ -61,7 +76,7 @@ function SetExercisesTables() {
           <Flex
             alignItems={'center'}
             justifyContent={'center'}
-            key={exercicio.id_exercicio}
+            key={exercicio.id}
             position={'relative'}
             minW={'2xs'}
             minH={'2xs'}
@@ -72,12 +87,12 @@ function SetExercisesTables() {
             p={5}
           >
             <Checkbox
-              value={exercicio.id_exercicio}
+              value={exercicio.id}
               onChange={(e) => handleCheckboxChange(e, exercicio)}
               fontWeight={'bold'}
               color={textColor}
             >
-              {exercicio.nome_exercicio}
+              {exercicio.nome}
             </Checkbox>
           </Flex>
         ));
@@ -106,7 +121,7 @@ function SetExercisesTables() {
               '&::-webkit-scrollbar-thumb': {
                 borderRadius: 10,
                 width: 5,
-                background: '#ffffff29',
+                background: scroll,
               },
             }}
           >
@@ -144,14 +159,28 @@ function SetExercisesTables() {
     });
   };
 
+  // Dentro da função SetExercisesTables
   const sendSelectedExercises = async () => {
     try {
+      const idUser = getCookie();
+
+      // Adiciona a propriedade 'idUser' a cada exercício
+      const exercisesWithIdUser = selectedExercises.map((exercicio) => ({
+        ...exercicio,
+        idUser: idUser,
+        nomeFicha: nomeFicha,
+      }));
+
       const response = await axios.post(
         'http://localhost/Github/server/monta_ficha.php',
-        selectedExercises,
+        exercisesWithIdUser,
       );
       console.log('Dados enviados com sucesso!', response);
-      console.log('exercicios enviados: ', selectedExercises);
+      console.log('exercicios enviados: ', exercisesWithIdUser);
+
+      // Atualiza o estado para forçar a renderização
+      setForceRender(!forceRender);
+      setSelectedExercises([]);
     } catch (error) {
       console.error('Erro ao enviar os dados:', error);
     }
@@ -160,7 +189,7 @@ function SetExercisesTables() {
   return (
     <>
       <Button
-        ml="4"
+        mt={10}
         bg={useColorModeValue('orange.400', 'purple.400')}
         color={'white'}
         onClick={() => {
@@ -168,7 +197,7 @@ function SetExercisesTables() {
           loadExercises();
         }}
       >
-        Use Overlay two
+        Montar Ficha
       </Button>
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
         {overlay}
@@ -204,7 +233,17 @@ function SetExercisesTables() {
                 },
               }}
             >
-              <Flex w={'100%'}>{overlay}</Flex>
+              <VStack spacing={10}>
+                <FormControl>
+                  <FormLabel fontWeight={600}>Workout name</FormLabel>
+                  <Input
+                    type="text"
+                    placeholder="Workout name: exmaple"
+                    onChange={(e) => setNomeFicha(e.target.value)}
+                  />
+                </FormControl>
+                <Flex w={'100%'}>{overlay}</Flex>
+              </VStack>
             </Container>
           </ModalBody>
           <ModalFooter>

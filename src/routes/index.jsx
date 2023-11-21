@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 
 import { Route, Routes } from 'react-router-dom';
 import Home from '../pages/Home';
-import Training from '../pages/training';
+import Training from '../pages/Training/Training';
 import Create from '../pages/Create';
 import Signin from '../pages/Login/signin';
 import Signup from '../pages/Login/signup';

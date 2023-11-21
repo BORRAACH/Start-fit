@@ -102,11 +102,17 @@ export default function Signup() {
 
     if (res) {
       setError(res);
+      toast({
+        title: 'Erro de cadastro',
+        description: res,
+        status: 'error',
+        isClosable: true,
+      });
       console.log(' fodeu');
       return;
     }
 
-    navigate('/signin');
+    navigate('/training');
   };
 
   return (

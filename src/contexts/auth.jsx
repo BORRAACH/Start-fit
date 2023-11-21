@@ -12,11 +12,7 @@ export const AuthProvider = ({ children }) => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.post(
-          'http://localhost/Github/server/inf_user.php',
-          cookieValue,
-        );
-        console.log('Resposta do servidor:', response.data);
+        const response = await axios.post(`${rota}/inf_user.php`, cookieValue);
 
         if (response.data && response.data.length > 0) {
           const firstUser = response.data[0];
@@ -42,16 +38,12 @@ export const AuthProvider = ({ children }) => {
   const signin = async (email, senha) => {
     console.log('Enviando: ', email, senha);
     axios
-      .post(
-        'http://localhost/Github/server/login.php',
-        JSON.stringify({ email, senha }),
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true,
+      .post(`${rota}/login.php`, JSON.stringify({ email, senha }), {
+        headers: {
+          'Content-Type': 'application/json',
         },
-      )
+        withCredentials: true,
+      })
       .then((response) => {
         console.log('Resposta do servidor: ', response);
 
@@ -69,6 +61,9 @@ export const AuthProvider = ({ children }) => {
           localStorage.setItem('user_token', JSON.stringify({ email, token }));
           console.log(`USER: ${user}`);
           return true;
+        } else {
+          console.log('Usuario não cadastrado');
+          return 'Usuario não cadastrado';
         }
       })
       .catch((error) => {
@@ -81,6 +76,7 @@ export const AuthProvider = ({ children }) => {
     const usersStorage = JSON.parse(localStorage.getItem('users_bd'));
 
     const hasUser = usersStorage?.filter((user) => user.email === email);
+    console.log('auth_ line: 87');
 
     if (hasUser?.length) {
       return 'Já tem uma conta com esse E-mail';
@@ -89,20 +85,21 @@ export const AuthProvider = ({ children }) => {
     let newUser;
 
     if (usersStorage) {
+      console.log('auth_ line: 95');
       newUser = [...usersStorage, { nome, email, senha }];
     } else {
       newUser = [{ nome, email, senha }];
     }
 
     const dataJson = JSON.stringify({ nome, email, senha });
-
+    console.log('auth_ line: 103');
     axios
-      .post('http://localhost/Github/server/Cadastro.php', dataJson)
+      .post(`${rota}/Cadastro.php`, dataJson)
       .then((response) => console.log('Resposta do servidor: ', response.data))
       .catch((err) => console.log('Erro ao enviar dados: ', err));
 
     localStorage.setItem('users_bd', JSON.stringify(newUser));
-
+    console.log('signup_ line: 108');
     return;
   };
 
@@ -113,6 +110,8 @@ export const AuthProvider = ({ children }) => {
     if (parts.length === 2) return parts.pop().split(';').shift();
   };
 
+  var rota = '/Github/server';
+
   const signout = () => {
     setUser(null);
     document.cookie = 'PHPSESSID=';
@@ -121,7 +120,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, signed: !!user, signin, signup, signout, getCookie }}
+      value={{ user, signed: !!user, signin, signup, signout, getCookie, rota }}
     >
       {children}
     </AuthContext.Provider>

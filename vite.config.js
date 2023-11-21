@@ -3,6 +3,7 @@ import React from '@vitejs/plugin-react-swc';
 
 export default {
   plugins: [React()],
+  base: '/Github/server/',
   server: {
     middleware: (app) => {
       app.use((req, res, next) => {

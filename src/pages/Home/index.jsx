@@ -4,12 +4,23 @@ import {
   Flex,
   Container,
   useColorModeValue,
+  SimpleGrid,
+  VStack,
+  Center,
+  Button,
+  Icon,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 import RadialGradient from './RadialGradientElem';
 import GridListWithHeading from '../../components/Feature/GridListWithHeading';
+import According from '../../components/According';
+import AccordingElement from '../../components/According';
+import { DeleteIcon } from '@chakra-ui/icons';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 function Home() {
   const styles = {
@@ -32,6 +43,15 @@ function Home() {
       ),
     },
   };
+  const bgColor = useColorModeValue('blackAlpha.300', 'whiteAlpha.300');
+  const [isMaiorQue768] = useMediaQuery('(min-width: 768px)');
+
+  useEffect(() => {
+    axios
+      .get('/')
+      .then((res) => console.log(res))
+      .catch((err) => console.log(`ERROR: ${err}`));
+  }, []);
 
   return (
     <>
@@ -44,7 +64,7 @@ function Home() {
         transition={{ duration: 0.5, delay: 0.3 }}
       >
         <Container p={'2rem 3rem 3rem 3rem'} m={4}>
-          <Flex justifyContent={'space-between'}>
+          <SimpleGrid columns={2} minW={'100vw'}>
             <Box
               backgroundImage={styles.table.bg.gradient}
               boxShadow={styles.table.boxShadow}
@@ -52,25 +72,10 @@ function Home() {
               p={12}
               ml={100}
               mr={30}
+              maxW={'xl'}
               minH={'2xl'}
             >
-              <Text
-                fontFamily={'Ubuntu'}
-                fontSize={20}
-                fontStyle={'normal'}
-                fontWeight={400}
-                lineHeight={'normal'}
-                letterSpacing={'0.15625rem'}
-              >
-                Day A
-              </Text>
-              <Flex flexDirection={'column'}>
-                <Flex marginBottom={'3rem'} marginTop={'1rem'} gap={41.82}>
-                  <Box {...styles.tableBox}></Box>
-                  <Box {...styles.tableBox}></Box>
-                  <Box {...styles.tableBox}></Box>
-                  <Box {...styles.tableBox}></Box>
-                </Flex>
+              <Flex minW={'100%'} justifyContent={'space-between'}>
                 <Text
                   fontFamily={'Ubuntu'}
                   fontSize={20}
@@ -79,109 +84,131 @@ function Home() {
                   lineHeight={'normal'}
                   letterSpacing={'0.15625rem'}
                 >
-                  Create a new training table
+                  Nome da Ficha
                 </Text>
-                <Flex>
-                  <Box className="extended-box"></Box>
-                </Flex>
-                <Flex marginY={'4rem'} gap={41.82}>
-                  <Box {...styles.tableBox}></Box>
-                  <Box {...styles.tableBox}></Box>
-                  <Box {...styles.tableBox}></Box>
-                  <Box {...styles.tableBox}></Box>
-                </Flex>
+                <Button opacity={0.8}>
+                  <Icon as={DeleteIcon} />
+                </Button>
+              </Flex>
+              <Flex flexDirection={'column'}>
+                <VStack marginBottom={'3rem'} marginTop={'1rem'} spacing={8}>
+                  {Array.from({ length: 7 }).map((_, index) => (
+                    <Container
+                      key={index}
+                      minH={10}
+                      display={'flex'}
+                      alignItems={'center'}
+                      minW={100}
+                      bg={bgColor}
+                      borderRadius={5}
+                    >
+                      <Text color={'whiteAlpha.800'}>
+                        Exercicio {index + 1}
+                      </Text>
+                    </Container>
+                  ))}
+                </VStack>
               </Flex>
             </Box>
 
-            <Box w={'md'} ml={20}>
-              <Flex flexDirection={'column'} gap={8}>
-                <Text
-                  fontFamily={'Ubuntu'}
-                  fontStyle={'normal'}
-                  lineHeight={'normal'}
-                  letterSpacing={'0.1875rem'}
-                >
+            <Box w={'md'}>
+              <Flex minH={'100%'} alignItems={'center'}>
+                <VStack spacing={8} align={'self-start'}>
                   <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.7 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.8 }}
                   >
-                    <Text
-                      letterSpacing={'0.1875rem'}
-                      fontWeight={500}
-                      fontSize={60}
-                    >
-                      Welcome
-                    </Text>
+                    <Center alignItems={'end'}>
+                      {' '}
+                      <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ delay: 0.5, duration: 0.7 }}
+                      >
+                        <Text
+                          fontFamily={'Ubuntu'}
+                          fontStyle={'normal'}
+                          lineHeight={'normal'}
+                          letterSpacing={'0.1875rem'}
+                          fontWeight={500}
+                          fontSize={'7xl'}
+                        >
+                          Bem-vindo
+                        </Text>
+                      </motion.div>
+                      <motion.div
+                        initial={{ opacity: 0, x: 10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -10 }}
+                        transition={{ delay: 0.9, duration: 0.7 }}
+                      >
+                        <Text
+                          fontFamily={'Ubuntu'}
+                          fontStyle={'normal'}
+                          lineHeight={'normal'}
+                          letterSpacing={'0.1875rem'}
+                          fontSize={50}
+                          fontWeight={400}
+                          ml={4}
+                        >
+                          à
+                        </Text>
+                      </motion.div>
+                    </Center>
                   </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ delay: 0.4, duration: 0.7 }}
-                  >
-                    <Text
-                      fontSize={50}
-                      fontWeight={400}
-                      ml={4}
-                      letterSpacing={'0.15625rem'}
-                    >
-                      to
-                    </Text>
-                  </motion.div>
-                </Text>
-                <Text
-                  fontFamily={'Ubuntu'}
-                  fontSize={60}
-                  fontStyle={'normal'}
-                  fontWeight={700}
-                  lineHeight={'normal'}
-                  letterSpacing={'0.21875rem'}
-                >
+
                   <Flex flexDirection={'column'}>
                     <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ delay: 0.8, duration: 0.7 }}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -10 }}
+                      transition={{ delay: 1.6, duration: 0.7 }}
                     >
-                      <Text whiteSpace={'nowrap'}>Training sheet</Text>
-                    </motion.div>
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ delay: 1.2, duration: 0.7 }}
-                    >
-                      <Text>creator</Text>
+                      <Text
+                        fontFamily={'Ubuntu'}
+                        fontStyle={'normal'}
+                        fontWeight={700}
+                        lineHeight={'normal'}
+                        letterSpacing={'0.21875rem'}
+                        fontSize={'8xl'}
+                        whiteSpace={'nowrap'}
+                      >
+                        Start Fit
+                      </Text>
                     </motion.div>
                   </Flex>
-                </Text>
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ delay: 1.7, duration: 0.7 }}
-                >
-                  <Text
-                    fontFamily={'Ubuntu'}
-                    fontSize={25}
-                    fontStyle={'normal'}
-                    fontWeight={400}
-                    lineHeight={'normal'}
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ delay: 1.7, duration: 0.7 }}
                   >
-                    A simple platform that fits your purpose
-                  </Text>
-                </motion.div>
+                    <Text
+                      fontFamily={'Ubuntu'}
+                      fontSize={25}
+                      fontStyle={'normal'}
+                      fontWeight={400}
+                      lineHeight={'normal'}
+                    >
+                      Seu site de criação de fichas de treino
+                    </Text>
+                  </motion.div>
+                </VStack>
               </Flex>
             </Box>
-          </Flex>
+          </SimpleGrid>
         </Container>
-        <Container minW={'100%'} mt={40}>
+        <Container
+          minW={'100%'}
+          mt={40}
+          bg={useColorModeValue('whiteAlpha.900', 'blackaAlpha.900')}
+          pt={20}
+          pb={20}
+        >
           <AnimatePresence>
-            {' '}
-            <GridListWithHeading />
+            <AccordingElement></AccordingElement>
           </AnimatePresence>
         </Container>
       </motion.div>

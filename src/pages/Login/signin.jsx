@@ -49,10 +49,10 @@ export default function Signin() {
       console.error('erro', res);
       console.log('nao deu certo if (res !== true)');
       toast({
-        title: 'Erro de login',
+        title: 'Login bem-sucedido',
         description: res,
-        colorScheme: 'red',
-        status: 'error',
+        colorScheme: 'green',
+        status: 'success',
         isClosable: true,
       });
       return;

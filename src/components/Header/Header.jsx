@@ -17,10 +17,9 @@ import { motion } from 'framer-motion';
 
 import Sidebar from './SidebarButton';
 import ThemeToggleButton from '../theme-toggle-button';
-import HomeIcon from '../../assets/Icons/home.svg';
-import TablesIcon from '../../assets/Icons/tables.svg';
-import VerticalLine from '../../assets/Icons/vertical_line.svg';
-import Nav from './dropdow';
+import HomeIcon from '../../../Github/server/assets/Icons/home.svg';
+import TablesIcon from '../../../Github/server/assets/Icons/tables.svg';
+import VerticalLine from '../../../Github/server/assets/Icons/vertical_line.svg';
 import Dropdown from './dropdow';
 
 const Header = () => {
